@@ -21,13 +21,25 @@ height:150px;
     top:20px;
     left:20px;
 }
+
+a{
+	text-decoration:none;
+	color:blue;
+}
+a:hover{
+	text-decoration:underline;
+}
  #menu{
  padding-top:1em !important;
  left:0.5em;
  height:80px;
   display:inline-block;
  margin:0 auto;
-
+ }
+ 
+ h3{
+	 margin:0px;
+	 padding:0px;
  }
  
  .logo, .logo img{
@@ -41,8 +53,22 @@ height:150px;
 	width:100%;
 	padding:1.25em;
 }
+.halfwidth{
+	padding:1.25em;
+	border-right:1px solid #8c8b8b;
+	display:inline-block;
+	width:49%;
+}
+.noborder{
+	border:none;
+}
 .fullwidth h2{
 	text-align:center;
+}
+.twocol{
+width:70%;
+display:block;
+margin:0 auto;
 }
 #nav{
 	text-align:center;
@@ -172,6 +198,28 @@ hr {
 form {
                 width:410px;
 }
+.input {
+				position:relative;
+                background:white;
+                border:2px solid #f2b705;
+				font-family: Montserrat, Helvetica, Arial, sans-serif;
+				width:300px;
+				padding:0px !important;
+				height:35px;
+				bottom:1px;
+				margin-bottom:6px;
+				margin-top:10px;
+}
+
+.email{
+	background: url(../img/email.png) no-repeat scroll 5px 5px;
+	padding-left:36px !important;
+}
+
+.pass{
+	background: url(../img/pass.png) no-repeat scroll 5px 5px;
+	padding-left:36px !important;
+}
 .search {
 				position:relative;
                 background:white;
@@ -199,6 +247,30 @@ form {
 				border:2px solid sandybrown;
 }
 .button:hover  {
+		background: url("../img/bg2.png");
+        background-color: #f25c05;
+    color: #fff;
+}
+.vatop{
+	vertical-align:top;
+}
+.buttonform {
+                position:relative;
+                padding:6px 15px;
+                left:0px;
+				height:35px;
+				min-width:140px;
+				text-align: center;
+				line-height: 0px;
+				font-family: Montserrat, Helvetica, Arial, sans-serif;
+				font-size:16px;
+				color: #fff;
+	background: url("../img/bg2.png");
+	    background-color: #ffc000;
+				text-decoration: none;
+				border:2px solid sandybrown;
+}
+.buttonform:hover  {
 		background: url("../img/bg2.png");
         background-color: #f25c05;
     color: #fff;
@@ -280,6 +352,14 @@ form {
 	width:100%;
 	margin:0 auto;
 	list-style:none;
+}
+.halfwidth{
+	width:100%;
+	border:none;
+	display:block;
+}
+.twocol{
+	width:50%;
 }
     #menu {
 	text-align:center;

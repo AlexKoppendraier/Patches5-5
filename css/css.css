@@ -59,6 +59,11 @@ a:hover{
 	display:inline-block;
 	width:49%;
 }
+.onemid{
+	padding:1.25em;
+	width:80%;
+	margin:0 auto;
+}
 .noborder{
 	border:none;
 }
@@ -160,6 +165,7 @@ input[type=checkbox]{
 input[type=checkbox]:checked ~ #menu{
     display: block;
 }
+
 .textbg{
 background: -moz-linear-gradient(left, rgba(192,235,228,0) 15%, rgba(192,235,228,1) 50%, rgba(192,235,228,0) 85%); /* FF3.6-15 */
 background: -webkit-linear-gradient(left, rgba(192,235,228,0) 15%,rgba(192,235,228,1) 50%,rgba(192,235,228,0) 85%); /* Chrome10-25,Safari5.1-6 */
@@ -209,8 +215,17 @@ form {
 				bottom:1px;
 				margin-bottom:6px;
 				margin-top:10px;
+				color:grey;
 }
-
+.center{
+margin:0 auto; 
+text-align:center;
+}
+.floatleft{
+	float:left;
+	display:inline-block;
+	margin-right:10px;
+}
 .email{
 	background: url(../img/email.png) no-repeat scroll 5px 5px;
 	padding-left:36px !important;
@@ -336,49 +351,7 @@ form {
 	padding-bottom:0.5em;
 	color:#d12c2a;
 }
-.dropbtn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-	text-align:center;
-}
 
-li a, .dropbtn {
-    display: inline-block;
-    color: white;
-    text-align: center;
-    padding: 14px 76px;
-    text-decoration: none;
-}
-
-li a:hover, .dropdown:hover .dropbtn {
-    background-color: red;
-}
-
-li.dropdown {
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 210px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-	text-align:center;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-}
 /* MEDIA QUERIES */
 @media screen and (min-width: 47.5em ) {
   .leftColumn { margin-right: 19.5em; }

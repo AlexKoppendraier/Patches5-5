@@ -2,7 +2,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "password";
+$password = "";
 $mysql_name = 'webshop';
 
 
@@ -44,11 +44,11 @@ if ($conn->connect_error) {
         <label for="show-menu" class="show-menu">Toon Menu</label>
         <input type="checkbox" id="show-menu" role="button">
         <ul id="menu">
-            <li><a href="http://google.com">Categorieën</a></li>
+            <li><a href="categorieen.html">Categorieën</a></li>
             <li><a href="http://test.com">Eigen Ontwerp</a></li>
-            <li><a href="#">Over Ons</a></li>
+            <li><a href="about.html">Over Ons</a></li>
             <li><a href="#">Contact</a></li>
-            <li><a href="#">Inloggen</a></li>
+            <li><a href="login.html">Inloggen</a></li>
             <li class="searchbarmobile"><form>
                     <input class="search" type="text" placeholder="Waar ben je naar op zoek?" required>
                     <input class="button" type="button" value="Zoeken">
@@ -68,8 +68,9 @@ if ($conn->connect_error) {
             if ($result->num_rows > 0) {
                 // output data of each row
                 while($row = $result->fetch_assoc()) {
-                    echo "            <div class=\"product\"><a href=\"#\">
-                    <img src=http://via.placeholder.com/150x150px\"></img>
+                    $Product_id = $row['Product_id'];
+					echo "            <div class=\"product\"><a href=product.php?Product_id=$Product_id>
+                    <img src=\"GetProductImage.php?Product_id=$Product_id\", widht=\"150\", height=\"150\"></img>
                     <div class=\"title\">" . $row["product_name"]. "</div>
                 </a>
                 <div class=\"price\">&euro;" . $row["prodcuct_prijs"]. "</div>
@@ -92,13 +93,16 @@ if ($conn->connect_error) {
         <div class="productview">
 
             <?php
-            $sql = "SELECT Product_id, product_name, prodcuct_prijs from product LIMIT 5";
+            $sql = "SELECT Product_id, product_name, prodcuct_prijs from product ORDER BY Product_id DESC LIMIT 5";
             $result = $conn->query($sql);
-            if ($result->num_rows > 0) {
+            
+			if ($result->num_rows > 0) {
                 // output data of each row
                 while($row = $result->fetch_assoc()) {
-                    echo "            <div class=\"product\"><a href=\"#\">
-                    <img src=http://via.placeholder.com/150x150px\"></img>
+                    $Product_id = $row['Product_id'];
+					echo "            <div class=\"product\">
+					<a href=product.php?Product_id=$Product_id>
+                    <img src=\"GetProductImage.php?Product_id=$Product_id\", widht=\"150\", height=\"150\"></img>
                     <div class=\"title\">" . $row["product_name"]. "</div>
                 </a>
                 <div class=\"price\">&euro;" . $row["prodcuct_prijs"]. "</div>

@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
@@ -66,7 +66,8 @@ CREATE TABLE `product` (
   `vorm` varchar(13) NOT NULL,
   `materiaal` varchar(13) NOT NULL,
   `thema` varchar(13) NOT NULL,
-  `views` int(11) NOT NULL
+  `views` int(11) NOT NULL,
+  `image` LONGBLOB NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --

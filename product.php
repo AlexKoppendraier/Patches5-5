@@ -35,6 +35,8 @@ if(isset($_GET['Product_id'])) {
 		$views = $row['views'];
 		$image = $row['image'];
 		}
+		$newviews = $views + 1;
+		$conn->query("UPDATE product SET views=$newviews WHERE Product_id=$Product_id");
 	}
 	else{ 
 	echo "This item does not exist";
@@ -102,8 +104,7 @@ $conn->close();
 		- Naam: $product_name <br><br>
 		- Formaat in mm: $formaat <br><br>
 		- Dikte in mm: $dikte <br><br>
-		- Materiaal: $materiaal <br><br>
-		- Thema: $thema
+		- Materiaal: $materiaal
 		<div class=\"price\">&euro; $product_prijs</div>
 		<input class=\"button addtocart\" type=\"submit\" value=\"In winkelwagen\">
 		</div>

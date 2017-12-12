@@ -34,9 +34,11 @@ if(isset($_GET['Product_id'])) {
 		$thema = $row['thema'];
 		$views = $row['views'];
 		$image = $row['image'];
+		$voorraad = $row['voorraad'];
 		}
 		$newviews = $views + 1;
 		$conn->query("UPDATE product SET views=$newviews WHERE Product_id=$Product_id");
+		
 	}
 	else{ 
 	echo "This item does not exist";
@@ -104,9 +106,19 @@ $conn->close();
 		- Naam: $product_name <br><br>
 		- Formaat in mm: $formaat <br><br>
 		- Dikte in mm: $dikte <br><br>
-		- Materiaal: $materiaal
+		- Materiaal: $materiaal <br><br><br><br>";
+		
+		if($voorraad > 0) {
+			echo "Op voorraad";
+		}
+		else {
+			echo "Niet op voorraad";
+		}
+		
+		echo "
 		<div class=\"price\">&euro; $product_prijs</div>
 		<input class=\"button addtocart\" type=\"submit\" value=\"In winkelwagen\">
+		<input class=\"button addtofavorites\" type=\"submit\" value=\"Toevoegen aan Favorieten\">
 		</div>
 	</div>
 	<div class=\"fullwidth\">

@@ -312,7 +312,17 @@ position: absolute;
 	background: url(../img/cart2.png) no-repeat scroll 10px 10px;
 	background-color: #f25c05;
 }
-
+.addtofavorites{
+	background: url(../img/favorite2.png) no-repeat scroll 10px 8px;
+	background-color:#ffc000;
+	padding-left:50px;
+	width:280px;
+	margin-top:20px;
+}
+.addtofavorites:hover{
+	background: url(../img/favorite2.png) no-repeat scroll 10px 8px;
+	background-color: #f25c05;
+}
 .iteminfo{
 	float:right;
 	width:45%;

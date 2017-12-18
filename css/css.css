@@ -341,7 +341,7 @@ position: absolute;
     color: green;
     font-size: 22px;
     font-weight: 700;
-    padding-top: 1em;
+    padding-top: 0.8em;
 }
 
 .not-in-stock {

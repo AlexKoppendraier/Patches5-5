@@ -33,9 +33,9 @@ if ($conn->connect_error) {
 <header>
     <div id="logoheader"><div id="logoheaderimg"></div> <a href=""><div class="logo"><img src="img/logo.png"></img></div></a>
 
-        <div class="searchbar"><form>
-                <input class="search invis" type="text" placeholder="Waar ben je naar op zoek?" required>
-                <input class="button invis" type="button" value="Zoeken">
+        <div class="searchbar"><form action="search.php" method="GET">
+                <input class="search invis" name="query" type="text" placeholder="Waar ben je naar op zoek?" required>
+                <input class="button invis" type="submit" value="Zoeken">
                 <div class="button basketbar"><a href="#"><img style="height:45px;" src="img/cart.png"></img></a></div>
         </div>
 
@@ -49,10 +49,11 @@ if ($conn->connect_error) {
             <li><a href="about.html">Over Ons</a></li>
             <li><a href="#">Contact</a></li>
             <li><a href="login.html">Inloggen</a></li>
-            <li class="searchbarmobile"><form>
-                    <input class="search" type="text" placeholder="Waar ben je naar op zoek?" required>
-                    <input class="button" type="button" value="Zoeken">
-                </form></li>
+            <li class="searchbarmobile"><form action="search.php" method="GET">
+                    <input class="search" name="query" type="text" placeholder="Waar ben je naar op zoek?" required>
+                    <input class="button" type="submit" value="Zoeken">
+                
+			</form></li>
         </ul>
     </nav>
 </header>
@@ -69,7 +70,7 @@ if ($conn->connect_error) {
                 // output data of each row
                 while($row = $result->fetch_assoc()) {
                     $Product_id = $row['Product_id'];
-					echo "            <div class=\"product\"><a href=product.php?Product_id=$Product_id>
+					echo "<div class=\"product\"><a href=product.php?Product_id=$Product_id>
                     <img src=\"GetProductImage.php?Product_id=$Product_id\", widht=\"150\", height=\"150\"></img>
                     <div class=\"title\">" . $row["product_name"]. "</div>
                 </a>
@@ -100,7 +101,7 @@ if ($conn->connect_error) {
                 // output data of each row
                 while($row = $result->fetch_assoc()) {
                     $Product_id = $row['Product_id'];
-					echo "            <div class=\"product\">
+					echo "<div class=\"product\">
 					<a href=product.php?Product_id=$Product_id>
                     <img src=\"GetProductImage.php?Product_id=$Product_id\", widht=\"150\", height=\"150\"></img>
                     <div class=\"title\">" . $row["product_name"]. "</div>

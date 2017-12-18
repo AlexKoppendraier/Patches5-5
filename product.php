@@ -49,8 +49,6 @@ else {
 	echo "This page does not exist.";
 	exit();
 }
-
-$conn->close();
 ?>
 
 <html>
@@ -70,11 +68,11 @@ $conn->close();
     <header>
     <div id="logoheader"><div id="logoheaderimg"></div> <a href="fetch.php"><div class="logo"><img src="img/logo.png"></img></div></a>
 
-	<div class="searchbar"><form>
-                                <input class="search invis" type="text" placeholder="Waar ben je naar op zoek?" required>
-                                <input class="button invis" type="button" value="Zoeken">
-					<div class="button basketbar"><a href="#"><img style="height:45px;" src="img/cart.png"></img></a></div>			
-								</div>								
+        <div class="searchbar"><form action="search.php" method="GET">
+                <input class="search invis" name="query" type="text" placeholder="Waar ben je naar op zoek?" required>
+                <input class="button invis" type="submit" value="Zoeken">
+                <div class="button basketbar"><a href="#"><img style="height:45px;" src="img/cart.png"></img></a></div>
+        </div>								
 								
 </form>	</div>
 	<nav id="nav">
@@ -86,10 +84,11 @@ $conn->close();
         <li><a href="#">Over Ons</a></li>
         <li><a href="#">Contact</a></li>
 		<li><a href="login.html">Inloggen</a></li>
-        <li class="searchbarmobile"><form>
-                                <input class="search" type="text" placeholder="Waar ben je naar op zoek?" required>
-                                <input class="button" type="button" value="Zoeken">
-</form></li>
+        <li class="searchbarmobile"><form action="search.php" method="GET">
+                    <input class="search" name="query" type="text" placeholder="Waar ben je naar op zoek?" required>
+                    <input class="button" type="submit" value="Zoeken">
+                
+		</form></li>
     </ul>
       </nav>
     </header>
@@ -115,20 +114,44 @@ $conn->close();
 			echo "Niet op voorraad";
 		}
 		
-		echo "
+		echo"
 		<div class=\"price\">&euro; $product_prijs</div>
 		<input class=\"button addtocart\" type=\"submit\" value=\"In winkelwagen\">
 		<input class=\"button addtofavorites\" type=\"submit\" value=\"Toevoegen aan Favorieten\">
 		</div>
-	</div>
-	<div class=\"fullwidth\">
-	<h2 class=\"textbg\">Omschrijving</h2>
-	</div>	
-		<div class=\"description\">
-		Omschrijving van het product
-		</div>"
+	</div>";
 	?>
-</div>
+	
+	<div class="fullwidth">
+	<h2 class="textbg">Gerelateerde producten</h2>
+	</div>	
+        <div class="productview">
+
+            <?php
+            $sql = "SELECT Product_id, product_name, prodcuct_prijs from product WHERE thema LIKE '$thema' LIMIT 5";
+            $result = $conn->query($sql);
+            
+			if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = $result->fetch_assoc()) {
+                    $Product_id = $row['Product_id'];
+					echo "<div class=\"product\">
+					<a href=product.php?Product_id=$Product_id>
+                    <img src=\"GetProductImage.php?Product_id=$Product_id\", widht=\"150\", height=\"150\"></img>
+                    <div class=\"title\">" . $row["product_name"]. "</div>
+                </a>
+                <div class=\"price\">&euro;" . $row["prodcuct_prijs"]. "</div>
+            </div>";
+                }
+                echo "</table>";
+            } else {
+                echo "0 results";
+            }
+
+            $conn->close();
+            ?>
+	</div>
+	
     <footer>
   		<p>&copy;2014 Copyright info here...</p>
   	</footer>

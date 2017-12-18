@@ -128,7 +128,7 @@ else {
         <div class="productview">
 
             <?php
-            $sql = "SELECT Product_id, product_name, prodcuct_prijs from product WHERE thema LIKE '$thema' LIMIT 5";
+            $sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product WHERE thema LIKE '$thema' AND NOT Product_id = '$Product_id' LIMIT 5";
             $result = $conn->query($sql);
             
 			if ($result->num_rows > 0) {

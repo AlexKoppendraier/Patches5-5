@@ -105,13 +105,13 @@ else {
 		- Naam: $product_name <br><br>
 		- Formaat in mm: $formaat <br><br>
 		- Dikte in mm: $dikte <br><br>
-		- Materiaal: $materiaal <br><br><br><br>";
+		- Materiaal: $materiaal <br><br>";
 		
 		if($voorraad > 0) {
-			echo "Op voorraad";
+			echo "<div class=\"in-stock\">$voorraad op voorraad</div>";
 		}
 		else {
-			echo "Niet op voorraad";
+			echo "<div class=\"not-in-stock\">Niet op voorraad</div>";
 		}
 		
 		echo"

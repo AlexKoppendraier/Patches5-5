@@ -337,6 +337,20 @@ position: absolute;
 	color:#d12c2a;
 }
 
+.in-stock {
+    color: green;
+    font-size: 22px;
+    font-weight: 700;
+    padding-top: 1em;
+}
+
+.not-in-stock {
+    color: red;
+    font-size: 22px;
+    font-weight: 700;
+    padding-top: 0.8em;
+}
+
 .description{
 width:50%;
 text-align:left;

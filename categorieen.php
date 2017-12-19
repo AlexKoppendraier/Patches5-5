@@ -13,42 +13,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-//Check URL variabele
-if(isset($_GET['Product_id'])) {
-	$Product_id = $_GET['Product_id'];
-	//Selecteer product
-	$sql = "SELECT * FROM product WHERE Product_id = '$Product_id' LIMIT 1";
-    $result = $conn->query($sql);       
-	if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-	//Laad alle productdata
-		$Product_id = $row['Product_id'];
-		$product_name = $row['product_name'];
-		$product_prijs = $row['prodcuct_prijs'];
-		$dikte = $row['dikte'];
-		$kleur = $row['kleur'];
-		$formaat = $row['formaat'];
-		$vorm = $row['vorm'];
-		$materiaal = $row['materiaal'];
-		$thema = $row['thema'];
-		$views = $row['views'];
-		$image = $row['image'];
-		$voorraad = $row['voorraad'];
-		}
-		$newviews = $views + 1;
-		$conn->query("UPDATE product SET views=$newviews WHERE Product_id=$Product_id");
-		
-	}
-	else{ 
-	echo "This item does not exist";
-	exit();
-	}
-}
-else {
-	echo "This page does not exist.";
-	exit();
-}
 ?>
 
 <html>
@@ -92,51 +56,102 @@ else {
     </ul>
       </nav>
     </header>
-<div class="columnsContainer">
-	<div class="fullwidth">	
-	<?php
-
-	echo "<h2 class=\"textbg\" > $product_name </h2>
-	</div>	
-		<div class=\"itemview\">
-		<img src=\"GetProductImage.php?Product_id=$Product_id\", widht=\"150\", height=\"150\"></img>
-		</div>
-		<div class=\"iteminfo\">
-		- Naam: $product_name <br><br>
-		- Formaat in mm: $formaat <br><br>
-		- Dikte in mm: $dikte <br><br>
-		- Materiaal: $materiaal <br><br>";
-		
-		if($voorraad > 0) {
-			echo "<div class=\"in-stock\">$voorraad op voorraad</div>";
-		}
-		else {
-			echo "<div class=\"not-in-stock\">Niet op voorraad</div>";
-		}
-		
-		echo"
-		<div class=\"price\">&euro; $product_prijs</div>
-		<input class=\"button addtocart\" type=\"submit\" value=\"In winkelwagen\">
-		<input class=\"button addtofavorites\" type=\"submit\" value=\"Toevoegen aan Favorieten\">
-		</div>
-	</div>";
-	?>
+		<nav id="nav">
+	  	<div class="fullwidth">
+	  		<h2 class="textbg" >Categorieën</h2>
+			<hr>
+			
+	<label for="show-menu" class="show-menu">Toon categorieën</label>
+	<input type="checkbox" id="show-menu" role="button">
+	<ul id="menu">
+	<li class="dropdown">
+		<a class="dropcategory">Thema</a>
+		<div class="dropdown-content">
+			<a href="#">Helden</a>
+			<a href="#">Overig</a>
+			<a href="#">Vlaggen</a>
+			<a href="#">Leger</a>
+			<a href="#">Autos</a>
+			<a href="#">Steden</a>
+			<a href="#">Dieren</a>
+			<a href="#">Overig</a>
+	</div>
+	</li>
+    
+	<li class="dropdown">
+    <a class="dropcategory">Kleur</a>
+    <div class="dropdown-content">
+      <a href="#">Wit</a>
+      <a href="#">Zwart</a>
+      <a href="#">Grijs</a>
+	  <a href="#">Rood</a>
+	  <a href="#">Blauw</a>
+	  <a href="#">Groen</a>
+	  <a href="#">Geel</a>
+	  <a href="#">Oranje</a>
+	</div>
+	</li>
 	
+	<li class="dropdown">
+    <a class="dropcategory">Vorm</a>
+    <div class="dropdown-content">
+      <a href="#">Vierkant</a>
+      <a href="#">Rond</a>
+	  <a href="#">Rechthoek</a>
+      <a href="#">Schild</a>
+	</div>
+	</li>
+	
+	<li class="dropdown">
+    <a class="dropcategory">Formaat</a>
+    <div class="dropdown-content">
+      <a href="#">40x40</a>
+      <a href="#">40x60</a>
+      <a href="#">45x60</a>
+	  <a href="#">50x50</a>
+	  <a href="#">50x55</a>
+	  <a href="#">50x60</a>
+	  <a href="#">55x60</a>
+	  <a href="#">60x40</a>
+	  <a href="#">60x60</a>
+	</div>
+	</li>
+	
+	<li class="dropdown">
+    <a class="dropcategory">Materiaal</a>
+    <div class="dropdown-content">
+      <a href="#">Katoen</a>
+	</div>
+	</li>
+	
+	<li class="dropdown">
+    <a class="dropcategory">Prijs</a>
+    <div class="dropdown-content">
+      <a href="#">€0 - €0,99</a>
+      <a href="#">€1 - €1,99</a>
+      <a href="#">€2 - €2,99</a>
+	</div>
+	</li>
+	
+    </ul>
+      </nav>
+			</div>
+			</div>
+			
 	<div class="fullwidth">
-	<h2 class="textbg">Gerelateerde producten</h2>
-	</div>	
-        <div class="productview">
-
-            <?php
-            $sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product WHERE thema LIKE '$thema' AND NOT Product_id = '$Product_id' LIMIT 5";
+	
+	  		<h2 class="textbg">Producten</h2>
+			<hr>
+			<div class="productview">
+			
+<?php
+            $sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product";
             $result = $conn->query($sql);
-            
-			if ($result->num_rows > 0) {
+            if ($result->num_rows > 0) {
                 // output data of each row
                 while($row = $result->fetch_assoc()) {
                     $Product_id = $row['Product_id'];
-					echo "<div class=\"product\">
-					<a href=product.php?Product_id=$Product_id>
+					echo "<div class=\"product\"><a href=product.php?Product_id=$Product_id>
                     <img src=\"GetProductImage.php?Product_id=$Product_id\", widht=\"150\", height=\"150\"></img>
                     <div class=\"title\">" . $row["product_name"]. "</div>
                 </a>
@@ -148,10 +163,12 @@ else {
                 echo "0 results";
             }
 
-            $conn->close();
             ?>
-	</div>
-	
+
+
+            </div>
+			</div>
+
     <footer>
   		<p>&copy;2014 Copyright info here...</p>
   	</footer>

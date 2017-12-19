@@ -44,7 +44,7 @@ if ($conn->connect_error) {
         <label for="show-menu" class="show-menu">Toon Menu</label>
         <input type="checkbox" id="show-menu" role="button">
         <ul id="menu">
-            <li><a href="categorieen.html">Categorieën</a></li>
+            <li><a href="categorieen.php">Categorieën</a></li>
             <li><a href="http://test.com">Eigen Ontwerp</a></li>
             <li><a href="about.html">Over Ons</a></li>
             <li><a href="#">Contact</a></li>

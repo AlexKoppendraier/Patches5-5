@@ -67,69 +67,69 @@ if ($conn->connect_error) {
 	<li class="dropdown">
 		<a class="dropcategory">Thema</a>
 		<div class="dropdown-content">
-			<a href="#">Helden</a>
-			<a href="#">Overig</a>
-			<a href="#">Vlaggen</a>
-			<a href="#">Leger</a>
-			<a href="#">Autos</a>
-			<a href="#">Steden</a>
-			<a href="#">Dieren</a>
-			<a href="#">Overig</a>
+			<a href="categorieen.php?filterthema=Helden">Helden</a>
+			<a href="categorieen.php?filterthema=Vlaggen">Vlaggen</a>
+			<a href="categorieen.php?filterthema=Leger">Leger</a>
+			<a href="categorieen.php?filterthema=Autos">Autos</a>
+			<a href="categorieen.php?filterthema=Steden">Steden</a>
+			<a href="categorieen.php?filterthema=Dieren">Dieren</a>
+			<a href="categorieen.php?filterthema=Overig">Overig</a>
 	</div>
 	</li>
     
 	<li class="dropdown">
     <a class="dropcategory">Kleur</a>
     <div class="dropdown-content">
-      <a href="#">Wit</a>
-      <a href="#">Zwart</a>
-      <a href="#">Grijs</a>
-	  <a href="#">Rood</a>
-	  <a href="#">Blauw</a>
-	  <a href="#">Groen</a>
-	  <a href="#">Geel</a>
-	  <a href="#">Oranje</a>
+      <a href="categorieen.php?filterkleur=Wit">Wit</a>
+      <a href="categorieen.php?filterkleur=Zwart">Zwart</a>
+      <a href="categorieen.php?filterkleur=Grijs">Grijs</a>
+	  <a href="categorieen.php?filterkleur=Rood">Rood</a>
+	  <a href="categorieen.php?filterkleur=Blauw">Blauw</a>
+	  <a href="categorieen.php?filterkleur=Groen">Groen</a>
+	  <a href="categorieen.php?filterkleur=Geel">Geel</a>
+	  <a href="categorieen.php?filterkleur=Oranje">Oranje</a>
 	</div>
 	</li>
 	
 	<li class="dropdown">
     <a class="dropcategory">Vorm</a>
     <div class="dropdown-content">
-      <a href="#">Vierkant</a>
-      <a href="#">Rond</a>
-	  <a href="#">Rechthoek</a>
-      <a href="#">Schild</a>
+      <a href="categorieen.php?filtervorm=Vierkant">Vierkant</a>
+      <a href="categorieen.php?filtervorm=Rond">Rond</a>
+	  <a href="categorieen.php?filtervorm=Rechthoek">Rechthoek</a>
+      <a href="categorieen.php?filtervorm=Schild">Schild</a>
 	</div>
 	</li>
 	
 	<li class="dropdown">
     <a class="dropcategory">Formaat</a>
     <div class="dropdown-content">
-      <a href="#">40x40</a>
-      <a href="#">40x60</a>
-      <a href="#">45x60</a>
-	  <a href="#">50x50</a>
-	  <a href="#">50x55</a>
-	  <a href="#">50x60</a>
-	  <a href="#">55x60</a>
-	  <a href="#">60x40</a>
-	  <a href="#">60x60</a>
+      <a href="categorieen.php?filterformaat=40x40">40x40</a>
+      <a href="categorieen.php?filterformaat=40x60">40x60</a>
+      <a href="categorieen.php?filterformaat=45x60">45x60</a>
+	  <a href="categorieen.php?filterformaat=50x50">50x50</a>
+	  <a href="categorieen.php?filterformaat=50x55">50x55</a>
+	  <a href="categorieen.php?filterformaat=50x60">50x60</a>
+	  <a href="categorieen.php?filterformaat=55x60">55x60</a>
+	  <a href="categorieen.php?filterformaat=60x40">60x40</a>
+	  <a href="categorieen.php?filterformaat=60x60">60x60</a>
 	</div>
 	</li>
 	
 	<li class="dropdown">
     <a class="dropcategory">Materiaal</a>
     <div class="dropdown-content">
-      <a href="#">Katoen</a>
+      <a href="categorieen.php?filtermateriaal=Katoen">Katoen</a>
 	</div>
 	</li>
 	
 	<li class="dropdown">
     <a class="dropcategory">Prijs</a>
     <div class="dropdown-content">
-      <a href="#">€0 - €0,99</a>
-      <a href="#">€1 - €1,99</a>
-      <a href="#">€2 - €2,99</a>
+      <a href="categorieen.php?minprijs=0&maxprijs=0.99">€0 - €0,99</a>
+      <a href="categorieen.php?minprijs=1&maxprijs=1.99">€1 - €1,99</a>
+      <a href="categorieen.php?minprijs=2&maxprijs=2.99">€2 - €2,99</a>
+	  <a href="categorieen.php?minprijs=3&maxprijs=1000">>€3</a>
 	</div>
 	</li>
 	
@@ -145,7 +145,141 @@ if ($conn->connect_error) {
 			<div class="productview">
 			
 <?php
-            $sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product";
+    if(isset($_GET['filterthema'])) {
+		$themafilter = $_GET['filterthema'];
+		//Selecteer producten
+		$sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product WHERE thema LIKE '%".$themafilter."%'";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = $result->fetch_assoc()) {
+                    $Product_id = $row['Product_id'];
+					echo "<div class=\"product\"><a href=product.php?Product_id=$Product_id>
+                    <img src=\"GetProductImage.php?Product_id=$Product_id\", widht=\"150\", height=\"150\"></img>
+                    <div class=\"title\">" . $row["product_name"]. "</div>
+					</a>
+					<div class=\"price\">&euro;" . $row["prodcuct_prijs"]. "</div>
+					</div>";
+                } 
+			}
+			else {
+				echo "Geen resultaten";
+			}
+	}
+	
+    else if(isset($_GET['filterkleur'])) {
+		$kleurfilter = $_GET['filterkleur'];
+		//Selecteer producten
+		$sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product WHERE kleur LIKE '%".$kleurfilter."%'";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = $result->fetch_assoc()) {
+                    $Product_id = $row['Product_id'];
+					echo "<div class=\"product\"><a href=product.php?Product_id=$Product_id>
+                    <img src=\"GetProductImage.php?Product_id=$Product_id\", widht=\"150\", height=\"150\"></img>
+                    <div class=\"title\">" . $row["product_name"]. "</div>
+					</a>
+					<div class=\"price\">&euro;" . $row["prodcuct_prijs"]. "</div>
+					</div>";
+                } 
+			}
+			else {
+				echo "Geen resultaten";
+			}
+	}
+	
+    else if(isset($_GET['filtervorm'])) {
+		$vormfilter = $_GET['filtervorm'];
+		//Selecteer producten
+		$sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product WHERE vorm LIKE '%".$vormfilter."%'";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = $result->fetch_assoc()) {
+                    $Product_id = $row['Product_id'];
+					echo "<div class=\"product\"><a href=product.php?Product_id=$Product_id>
+                    <img src=\"GetProductImage.php?Product_id=$Product_id\", widht=\"150\", height=\"150\"></img>
+                    <div class=\"title\">" . $row["product_name"]. "</div>
+					</a>
+					<div class=\"price\">&euro;" . $row["prodcuct_prijs"]. "</div>
+					</div>";
+                } 
+			}
+			else {
+				echo "Geen resultaten";
+			}
+	}
+	
+    else if(isset($_GET['filterformaat'])) {
+		$formaatfilter = $_GET['filterformaat'];
+		//Selecteer producten
+		$sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product WHERE formaat LIKE '%".$formaatfilter."%'";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = $result->fetch_assoc()) {
+                    $Product_id = $row['Product_id'];
+					echo "<div class=\"product\"><a href=product.php?Product_id=$Product_id>
+                    <img src=\"GetProductImage.php?Product_id=$Product_id\", widht=\"150\", height=\"150\"></img>
+                    <div class=\"title\">" . $row["product_name"]. "</div>
+					</a>
+					<div class=\"price\">&euro;" . $row["prodcuct_prijs"]. "</div>
+					</div>";
+                } 
+			}
+			else {
+				echo "Geen resultaten";
+			}
+	}
+	
+    else if(isset($_GET['filtermateriaal'])) {
+		$materiaalfilter = $_GET['filtermateriaal'];
+		//Selecteer producten
+		$sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product WHERE materiaal LIKE '%".$materiaalfilter."%'";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = $result->fetch_assoc()) {
+                    $Product_id = $row['Product_id'];
+					echo "<div class=\"product\"><a href=product.php?Product_id=$Product_id>
+                    <img src=\"GetProductImage.php?Product_id=$Product_id\", widht=\"150\", height=\"150\"></img>
+                    <div class=\"title\">" . $row["product_name"]. "</div>
+					</a>
+					<div class=\"price\">&euro;" . $row["prodcuct_prijs"]. "</div>
+					</div>";
+                } 
+			}
+			else {
+				echo "Geen resultaten";
+			}
+	}
+	
+    else if(isset($_GET['minprijs']) && isset($_GET['maxprijs'])) {
+		$minprijs = $_GET['minprijs'];
+		$maxprijs = $_GET['maxprijs'];
+		//Selecteer producten
+		$sql = "SELECT * FROM product WHERE prodcuct_prijs between ".$minprijs." and  ".$maxprijs." ";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = $result->fetch_assoc()) {
+                    $Product_id = $row['Product_id'];
+					echo "<div class=\"product\"><a href=product.php?Product_id=$Product_id>
+                    <img src=\"GetProductImage.php?Product_id=$Product_id\", widht=\"150\", height=\"150\"></img>
+                    <div class=\"title\">" . $row["product_name"]. "</div>
+					</a>
+					<div class=\"price\">&euro;" . $row["prodcuct_prijs"]. "</div>
+					</div>";
+                }
+			}
+			else {
+				echo "Geen resultaten";
+			}
+	}
+	
+	else {
+			$sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 // output data of each row
@@ -158,16 +292,13 @@ if ($conn->connect_error) {
                 <div class=\"price\">&euro;" . $row["prodcuct_prijs"]. "</div>
             </div>";
                 }
-                echo "</table>";
             } else {
-                echo "0 results";
+                echo "Geen resultaten";
             }
-
-            ?>
-
-
-            </div>
-			</div>
+	}
+?>
+</div>
+</div>
 
     <footer>
   		<p>&copy;2014 Copyright info here...</p>

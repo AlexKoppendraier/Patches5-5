@@ -80,7 +80,6 @@ if ($conn->connect_error) {
 					<div class=\"price\">&euro;" . $row["prodcuct_prijs"]. "</div>
 					</div>";
 					}
-					echo "</table>";
 				} 
 				else {
 					echo "Geen zoekresultaten";

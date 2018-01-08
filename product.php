@@ -143,7 +143,6 @@ else {
                 <div class=\"price\">&euro;" . $row["prodcuct_prijs"]. "</div>
             </div>";
                 }
-                echo "</table>";
             } else {
                 echo "0 results";
             }

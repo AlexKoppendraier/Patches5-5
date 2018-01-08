@@ -31,7 +31,7 @@ if ($conn->connect_error) {
 <body>
 
 <header>
-    <div id="logoheader"><div id="logoheaderimg"></div> <a href=""><div class="logo"><img src="img/logo.png"></img></div></a>
+    <div id="logoheader"><div id="logoheaderimg"></div> <a href="fetch.php"><div class="logo"><img src="img/logo.png"></img></div></a>
 
         <div class="searchbar"><form action="search.php" method="GET">
                 <input class="search invis" name="query" type="text" placeholder="Waar ben je naar op zoek?" required>

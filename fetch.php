@@ -45,10 +45,10 @@ if ($conn->connect_error) {
         <input type="checkbox" id="show-menu" role="button">
         <ul id="menu">
             <li><a href="categorieen.php">Categorieën</a></li>
-            <li><a href="http://test.com">Eigen Ontwerp</a></li>
+            <li><a href="custompatch.php">Eigen Ontwerp</a></li>
             <li><a href="about.html">Over Ons</a></li>
             <li><a href="#">Contact</a></li>
-            <li><a href="login.html">Inloggen</a></li>
+            <li><a href="/user">Inloggen</a></li>
             <li class="searchbarmobile"><form action="search.php" method="GET">
                     <input class="search" name="query" type="text" placeholder="Waar ben je naar op zoek?" required>
                     <input class="button" type="submit" value="Zoeken">

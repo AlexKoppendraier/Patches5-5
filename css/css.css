@@ -374,6 +374,22 @@ margin: 0 auto;
 	word-wrap: break-word;
 	margin:0 auto;
 }
+
+.patchupload {
+	text-align: center;
+	margin: 0 auto;
+	padding-top:2em;
+	padding-bottom:2em;
+}
+
+.patchpreview {
+	width: 20%;
+	text-align: center;
+	margin: 0 auto;
+	padding-top:2em;
+	padding-bottom:2em;
+}
+
 .productview .product img{
 	max-width:20vw;
 	max-height:20vh;

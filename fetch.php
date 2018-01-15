@@ -64,7 +64,7 @@ if ($conn->connect_error) {
         <hr>
         <div class="productview">
             <?php
-            $popsql = "SELECT Product_id, product_name, prodcuct_prijs, views from product ORDER BY views DESC LIMIT 5";
+            $popsql = "SELECT Product_id, product_name, prodcuct_prijs,custom_patch, views from product where custom_patch LIKE '0' ORDER BY views DESC LIMIT 5;";
             $result = $conn->query($popsql);
             if ($result->num_rows > 0) {
                 // output data of each row
@@ -94,7 +94,7 @@ if ($conn->connect_error) {
         <div class="productview">
 
             <?php
-            $sql = "SELECT Product_id, product_name, prodcuct_prijs from product ORDER BY Product_id DESC LIMIT 5";
+            $sql = "SELECT Product_id, product_name, prodcuct_prijs, custom_patch from product where custom_patch LIKE '0' ORDER BY Product_id DESC LIMIT 5";
             $result = $conn->query($sql);
             
 			if ($result->num_rows > 0) {

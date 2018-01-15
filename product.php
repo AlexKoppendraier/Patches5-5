@@ -34,7 +34,8 @@ if(isset($_GET['Product_id'])) {
 		$thema = $row['thema'];
 		$views = $row['views'];
 		$image = $row['image'];
-		$voorraad = $row['voorraad'];
+		$voorraad = $row['stock'];
+		$custom = $row['custom_patch'];
 		}
 		$newviews = $views + 1;
 		$conn->query("UPDATE product SET views=$newviews WHERE Product_id=$Product_id");
@@ -128,7 +129,7 @@ else {
         <div class="productview">
 
             <?php
-            $sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product WHERE thema LIKE '$thema' AND NOT Product_id = '$Product_id' LIMIT 5";
+            $sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product WHERE thema LIKE '$thema' AND custom_patch LIKE '0' AND NOT Product_id = '$Product_id' LIMIT 5";
             $result = $conn->query($sql);
             
 			if ($result->num_rows > 0) {

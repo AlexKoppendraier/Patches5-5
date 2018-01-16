@@ -5,83 +5,14 @@ if(isset($_SESSION['user_id'])) {
 checkAdmin($_SESSION['user_id']);
 if(isset($_GET['action']) && $_GET['action'] == 'logout'){
 	logout();
-}?>
 
+	
+}?>
 <html class=""><head>
 
 <head>
 <title> Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
-
-function drawChart() {
-
-    var data = google.visualization.arrayToDataTable([
-      ['Language', 'Rating'],
-      <?php
-	  	$sql = "SELECT thema,sum(views) FROM product where Custom = 0 group by thema";
-	$result = mysqli_query($db, $sql);
-      if($result->num_rows > 0){
-          while($row = $result->fetch_assoc()){
-            echo "['".$row['thema']."', ".$row['sum(views)']."],";
-          }
-      }
-      ?>
-    ]);
-    
-    var options = {
-        title: 'Views per Categorie',
-        width: 400,
-        height: 300,
-		chartArea:{left:2,top:20,width:"90%",height:"90%"}
-    };
-    
-    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-    
-    chart.draw(data, options);
-}
-    </script>
-	    <script type="text/javascript">
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
-
-function drawChart() {
-
-    var data = google.visualization.arrayToDataTable([
-      ['Language', 'Rating'],
-      <?php
-	  	$sql = "SELECT p.thema, sum(op.product_amount) qty
-from product p
-left outer join order_products op on op.fk_product_id = p.Product_id
-left outer join webshop.order o on o.order_id = op.fk_order_id
-where o.shipped != 'Nee'
-group by p.thema
-order by qty desc";
-	$result = mysqli_query($db, $sql);
-      if($result->num_rows > 0){
-          while($row = $result->fetch_assoc()){
-            echo "['".$row['thema']."', ".$row['qty']."],";
-          }
-      }
-      ?>
-    ]);
-    
-    var options = {
-        title: 'Sales per Categorie',
-        width: 400,
-        height: 300,
-		chartArea:{left:2,top:20,width:"90%",height:"90%"}
-    };
-    
-    var chart = new google.visualization.PieChart(document.getElementById('piechart2'));
-    
-    chart.draw(data, options);
-}
-    </script>
 <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|PT+Sans|Roboto|Roboto+Slab|Titillium+Web" rel="stylesheet">
 <style class="cp-pen-styles">* { box-sizing:border-box; }
 
@@ -128,7 +59,7 @@ a, a:hover{ text-decoration: none; cursor: pointer;}
 .footer .copyright { color: #777777;  padding: 5px 15px;   margin: 0;    line-height: 20px;    font-size: 14px;}
 .pull-left {    float: left!important;}
 .pull-right {    float: right!important;}
-.CenterForm { width: 420px;    margin: 0 auto;    z-index: 99;    display: block;    margin-top: 5%;    background: transparent;    border-radius: .25em .25em .4em .4em;    text-align: center;    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);    color: #fff;}
+.CenterForm {background-color:#fff; width: 420px;    margin: 0 auto;    z-index: 99;    display: block;    margin-top: 5%;    background: transparent;    border-radius: .25em .25em .4em .4em;    text-align: center;    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);    color: #fff;}
 hgroup {    text-align: center;    margin-top: 3em;    opacity: 0.7;    padding: 30px; border:2px solid sandybrown;  background:url("images/bg2.png");  background-color: #ffd34e;}
 .toggle {   display: none;}
 @media (max-width: 991px){
@@ -170,6 +101,14 @@ hgroup {    text-align: center;    margin-top: 3em;    opacity: 0.7;    padding:
 			background-color: #BBF6E2;
 			border: 1px solid #6ADE95;
 		}
+		table { 
+  color: #333;
+  font-family: Helvetica, Arial, sans-serif;
+  width: 640px;
+  /* Table reset stuff */
+  border-collapse: collapse; border-spacing: 0; 
+}
+		
 td, th {  border: 0 none; height: 30px; }
 			
 th {
@@ -206,8 +145,8 @@ tr:first-child th:last-child {
 			</div>
 			<ul class="nav"> 
 			<li> <a href="products.php"> Producten </a></li>
-			<li> <a href="orders.php"> Orders </a></li>	
-			<li> <a href="users.php"> Klanten </a></li>				
+			<li class="active"> <a href="orders.php"> Orders </a></li>	
+			<li>  <a href="users.php"> Klanten </a></li>				
 			<!--<li> <a href="#"> Profile </a></li> -->
 			<li> <a href="index.php?action=logout"> Log out </a></li>
 			</ul>
@@ -225,44 +164,52 @@ tr:first-child th:last-child {
 		<div class="content"> 
 			<div class="CenterForm">
 				<hgroup>
-			      <h1>Admin Dashboard</h1>
+			      <h1>Orders</h1>
 			    </hgroup>
-
-</div>
-				<div id="chart_holder" style="margin:0 auto;width:50%">
-				<div style="float:left;" id="piechart"></div>
-				<div style="float:left;" id="piechart2"></div>
-				</div>
-				
-<div style=";width: 500px;    margin: 0 auto;    z-index: 99;    display: block;  ">
-			<table style="width:495px;">
+			</div>
+			<div style=";width: 1205px;    margin: 0 auto;    z-index: 99;    display: block;  ">
+			<table style="width:1200px;">
 			<tr>
-			<td>Aantal Patches</td>											<?php 
-				$sql = "SELECT count(*) ct FROM product where Custom = 0";	
+			<th>Product</th>
+			<th>Aantal</th>
+			<th>Prijs per stuk</th>
+			<th>In voorraad</th>
+			<th>Betaald?</th>
+			<th>Verstuurd?</th>
+			</tr>
+			<tr>
+				<?php 
+								$id = $_GET["id"];
+				$sql = "SELECT user.*, o.*, op.fk_order_id, op.fk_product_id, op.product_amount, p.*
+FROM webshop.order o
+    inner join order_products op on o.order_id = op.fk_order_id
+    inner join product p on p.Product_id = op.fk_product_id
+	inner join user on user.user_id = o.fk_customer_id
+WHERE o.order_id = '".$id."'";	
 				$result = mysqli_query($db, $sql);
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
     while($row = mysqli_fetch_assoc($result)) {
-        echo "			<td>" . $row["ct"]. "</td>";
+        echo "<td> <a href='productedit.php?id=" . $row["fk_product_id"]. "'> " . $row["product_name"]. "</a> </td><td> " . $row["product_amount"]. "</td><td>€ " . $row["prodcuct_prijs"]. " </td><td>  " . $row["stock"]. "</td><td> " . $row["paid"]. "</td><td> " . $row["shipped"]. "</td></tr>";
+		if ($row["shipped"] == "Nee"){
+echo "<div class='form-container' style='float:right;'>";
+echo "	<form action='ordersettings.php' method='post' enctype='multipart/form-data'> ";
+echo "<input type='hidden' name='id' value='".$id."'>";
+echo "<input type='hidden' name='email' value='". $row["email"]. "'>";
+echo "	<input type='submit'  class='submit-button' name='submitsent'		value='Verstuur order'/>";
+echo "	</form> 	</div>";
+
+		}	else{
+		}
+		
     }
-				$sql = "select sum(views) v from product where Custom = 0";	
-				$result = mysqli_query($db, $sql);
-				    while($row = mysqli_fetch_assoc($result)) {
-		echo "</tr><tr><td>Aantal Views</td>";
-        echo "			<td>" . $row["v"]. "</td>";
-    }
-				$sql = "SELECT count(*) o FROM webshop.order";	
-				$result = mysqli_query($db, $sql);
-				    while($row = mysqli_fetch_assoc($result)) {
-		echo "</tr><tr><td>Aantal Orders</td>";
-        echo "			<td>" . $row["o"]. "</td>";
-    }
-					$sql = "SELECT count(*) u FROM user where rol = 1 and verificatie = 1";	
-				$result = mysqli_query($db, $sql);
-				    while($row = mysqli_fetch_assoc($result)) {
-		echo "</tr><tr><td>Aantal Gebruikers</td>";
-        echo "			<td>" . $row["u"]. "</td>";
-    }
+} else {
+    echo "0 results";
+}
 ?>
+
 </table>
+
 				</div>
 		</div>
 		<footer class="footer">

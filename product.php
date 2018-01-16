@@ -3,7 +3,8 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $mysql_name = 'webshop';
-
+require_once("dbcontroller.php");
+$db_handle = new DBController();
 
 // creërt de connectie
 $conn = new mysqli($servername, $username, $password, $mysql_name);
@@ -35,7 +36,6 @@ if(isset($_GET['Product_id'])) {
 		$views = $row['views'];
 		$image = $row['image'];
 		$voorraad = $row['stock'];
-		$custom = $row['custom_patch'];
 		}
 		$newviews = $views + 1;
 		$conn->query("UPDATE product SET views=$newviews WHERE Product_id=$Product_id");
@@ -72,7 +72,9 @@ else {
         <div class="searchbar"><form action="search.php" method="GET">
                 <input class="search invis" name="query" type="text" placeholder="Waar ben je naar op zoek?" required>
                 <input class="button invis" type="submit" value="Zoeken">
-                <div class="button basketbar"><a href="#"><img style="height:45px;" src="img/cart.png"></img></a></div>
+               <div class="button basketbar"><a href="cartsession.php">	<img style="height:45px;" src="img/cart.png"></img></a></div>
+				
+
         </div>								
 								
 </form>	</div>
@@ -83,7 +85,7 @@ else {
         <li><a href="categorieen.php">Categorieën</a></li>
         <li><a href="custompatch.php">Eigen Ontwerp</a></li>
         <li><a href="#">Over Ons</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="contact.php">Contact</a></li>
 		<li><a href="/user">Inloggen</a></li>
         <li class="searchbarmobile"><form action="search.php" method="GET">
                     <input class="search" name="query" type="text" placeholder="Waar ben je naar op zoek?" required>
@@ -116,12 +118,20 @@ else {
 		}
 		
 		echo"
-		<div class=\"price\">&euro; $product_prijs</div>
-		<input class=\"button addtocart\" type=\"submit\" value=\"In winkelwagen\">
-		<input class=\"button addtofavorites\" type=\"submit\" value=\"Toevoegen aan Favorieten\">
+		<div class=\"price\">&euro; $product_prijs</div>";?>
+				
+				<?php
+				    $product_array = $db_handle->runQuery("SELECT * FROM product where Product_id = '$Product_id' LIMIT 1");
+    if (!empty($product_array)) {
+        foreach($product_array as $key=>$value){ ?>
+				<form method="post" action="cartsession.php?action=add&code=<?php echo $product_array[$key]["Product_id"]; ?>">
+                    <div><input style="height:50px;" type="text" name="quantity" value="1" size="2" /><input class="button addtocart" style="width:250px;" type="submit" value="voeg to aan winkelwagen" class="buttonform" /></div>
+                </form>
+	<?php } }
+		echo "<input class=\"button addtofavorites\" type=\"submit\" value=\"Toevoegen aan Favorieten\">";  ?>
 		</div>
-	</div>";
-	?>
+	</div> 
+	
 	
 	<div class="fullwidth">
 	<h2 class="textbg">Gerelateerde producten</h2>
@@ -129,7 +139,7 @@ else {
         <div class="productview">
 
             <?php
-            $sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product WHERE thema LIKE '$thema' AND custom_patch LIKE '0' AND NOT Product_id = '$Product_id' LIMIT 5";
+            $sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product WHERE thema LIKE '$thema' AND NOT Product_id = '$Product_id' LIMIT 5";
             $result = $conn->query($sql);
             
 			if ($result->num_rows > 0) {
@@ -150,6 +160,8 @@ else {
 
             $conn->close();
             ?>
+			
+			
 	</div>
 	
     <footer>

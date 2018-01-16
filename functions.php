@@ -1,5 +1,5 @@
 <?php 
-require_once("../config.php"); 
+require_once("config.php"); 
 require_once("class-phpass.php"); 
 global $db;
 
@@ -95,7 +95,7 @@ mail($to,$subject,$message,$headers);
 function logout(){
 	unset($_SESSION['user_id']);
 	session_destroy();	
-	header('Location: ../fetch.php');
+	header('Location: index.php');
 	exit();
 }
 

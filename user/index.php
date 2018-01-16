@@ -99,6 +99,137 @@ hgroup {    text-align: center;    margin-top: 3em;    opacity: 0.7;    padding:
 			background-color: #BBF6E2;
 			border: 1px solid #6ADE95;
 		}
+td, th {  border: 0 none; height: 30px; }
+			
+th {
+  /* Gradient Background */
+	background: linear-gradient(#333 0%,#444 100%);
+	color: #FFF; font-weight: bold;
+	height: 40px;
+}
+		
+td { background: #FAFAFA; text-align: center; }
+
+/* Zebra Stripe Rows */
+		
+tr:nth-child(even) td { background: #EEE; } 
+tr:nth-child(odd) td { background: #FDFDFD; }
+
+
+/* Add border-radius to specific cells! */
+tr:first-child th:nth-child(1) { 
+  border-radius: 5px 0 0 0; 
+} 
+
+tr:first-child th:last-child { 
+  border-radius: 0 5px 0 0; 
+}
+
+
+.form-container {
+   border: 1px solid #f2e3d2;
+   background: #f2e3d2;
+   background: -webkit-gradient(linear, left top, left bottom, from(#f2e3d2), to(#f2e3d2));
+   background: -webkit-linear-gradient(top, #f2e3d2, #f2e3d2);
+   background: -moz-linear-gradient(top, #f2e3d2, #f2e3d2);
+   background: -ms-linear-gradient(top, #f2e3d2, #f2e3d2);
+   background: -o-linear-gradient(top, #f2e3d2, #f2e3d2);
+   background-image: -ms-linear-gradient(top, #f2e3d2 0%, #f2e3d2 100%);
+   -webkit-border-radius: 0px;
+   -moz-border-radius: 0px;
+   border-radius: 0px;
+   -webkit-box-shadow: rgba(000,000,000,0.9) 0 0px 2px, inset rgba(255,255,255,0.4) 0 0px 0;
+   -moz-box-shadow: rgba(000,000,000,0.9) 0 0px 2px, inset rgba(255,255,255,0.4) 0 0px 0;
+   box-shadow: rgba(000,000,000,0.9) 0 0px 2px, inset rgba(255,255,255,0.4) 0 0px 0;
+   font-family: 'Helvetica Neue',Helvetica,sans-serif;
+   text-decoration: none;
+   vertical-align: middle;
+   min-width:300px;
+   padding:20px;
+   width:80%;
+   margin:0 auto;
+   }
+.form-field {
+   border: 1px solid #c9b7a2;
+   background: #e4d5c3;
+   -webkit-border-radius: 0px;
+   -moz-border-radius: 0px;
+   border-radius: 0px;
+   color: #c9b7a2;
+   -webkit-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+   -moz-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+   box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+   padding:8px;
+   margin-bottom:20px;
+   width:280px;
+   }
+.form-field:focus {
+   background: #fff;
+   color: #725129;
+   }
+.form-container h2 {
+   text-shadow: #fdf2e4 0 1px 0;
+   font-size:18px;
+   margin: 0 0 10px 0;
+   font-weight:bold;
+   text-align:center;
+    }
+.form-title {
+   margin-bottom:10px;
+   color: #725129;
+   text-shadow: #fdf2e4 0 1px 0;
+   }
+.submit-container {
+   margin:8px 0;
+   text-align:right;
+   }
+.submit-button {
+   border: 1px solid #447314;
+   background: #6aa436;
+   background: -webkit-gradient(linear, left top, left bottom, from(#8dc059), to(#6aa436));
+   background: -webkit-linear-gradient(top, #8dc059, #6aa436);
+   background: -moz-linear-gradient(top, #8dc059, #6aa436);
+   background: -ms-linear-gradient(top, #8dc059, #6aa436);
+   background: -o-linear-gradient(top, #8dc059, #6aa436);
+   background-image: -ms-linear-gradient(top, #8dc059 0%, #6aa436 100%);
+   -webkit-border-radius: 0px;
+   -moz-border-radius: 0px;
+   border-radius: 0px;
+   -webkit-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 0px 0;
+   -moz-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 0px 0;
+   box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 0px 0;
+   text-shadow: #addc7e 0 1px 0;
+   color: #31540c;
+   font-family: helvetica, serif;
+   padding: 8.5px 18px;
+   font-size: 14px;
+   text-decoration: none;
+   vertical-align: middle;
+   }
+.submit-button:hover {
+   border: 1px solid #447314;
+   text-shadow: #31540c 0 1px 0;
+   background: #6aa436;
+   background: -webkit-gradient(linear, left top, left bottom, from(#8dc059), to(#6aa436));
+   background: -webkit-linear-gradient(top, #8dc059, #6aa436);
+   background: -moz-linear-gradient(top, #8dc059, #6aa436);
+   background: -ms-linear-gradient(top, #8dc059, #6aa436);
+   background: -o-linear-gradient(top, #8dc059, #6aa436);
+   background-image: -ms-linear-gradient(top, #8dc059 0%, #6aa436 100%);
+   color: #fff;
+   }
+.submit-button:active {
+   text-shadow: #31540c 0 1px 0;
+   border: 1px solid #447314;
+   background: #8dc059;
+   background: -webkit-gradient(linear, left top, left bottom, from(#6aa436), to(#6aa436));
+   background: -webkit-linear-gradient(top, #6aa436, #8dc059);
+   background: -moz-linear-gradient(top, #6aa436, #8dc059);
+   background: -ms-linear-gradient(top, #6aa436, #8dc059);
+   background: -o-linear-gradient(top, #6aa436, #8dc059);
+   background-image: -ms-linear-gradient(top, #6aa436 0%, #8dc059 100%);
+   color: #fff;
+   }	
 </style></head>
 <body>
 <div class="wrapper">
@@ -109,9 +240,9 @@ hgroup {    text-align: center;    margin-top: 3em;    opacity: 0.7;    padding:
 				<a href="#" class="simple-text"> Shop </a>
 			</div>
 			<ul class="nav"> 
-			<li class="active"> <a href="#"> Accountinformatie </a></li>	
-			<li> <a href="#"> Orders </a></li>	
-			<li> <a href="#"> Instellingen </a></li>			
+			<li> <a href="http://localhost/fetch.php"> Winkel </a></li>
+			<li> <a href="orders.php"> Orders </a></li>	
+			<li> <a href="settings.php"> Instellingen </a></li>			
 			<!--<li> <a href="#"> Profile </a></li> -->
 			<li> <a href="index.php?action=logout"> Log out </a></li>
 			</ul>
@@ -129,9 +260,15 @@ hgroup {    text-align: center;    margin-top: 3em;    opacity: 0.7;    padding:
 		<div class="content"> 
 			<div class="CenterForm">
 				<hgroup>
-			      <h1>User Dashboard</h1>
+			      <h1>Accountinformatie</h1>
 			    </hgroup>
+				
 			</div>
+						<div style=";width: 1405px;    margin: 0 auto;    z-index: 99;    display: block;  ">
+				</div>
+							<div style="background:white; width: 140-px;    margin: 0 auto;    z-index: 99;    display: block;  ">
+<div style="padding:15px;">Welkom op de gebruikers Dashboard van Patchy.</br> Door middel van de knoppen aan uw linker kant kunt u terug gaan naar de winkel, uw orders bekijken en uw instellingen wijzigen. </br> Veel winkelplezier!</div>
+				</div>
 		</div>
 		<footer class="footer">
             <div class="container-fluid">

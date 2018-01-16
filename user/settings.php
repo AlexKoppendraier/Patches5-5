@@ -2,86 +2,37 @@
 require_once("functions.php"); 
 
 if(isset($_SESSION['user_id'])) {  
-checkAdmin($_SESSION['user_id']);
+
 if(isset($_GET['action']) && $_GET['action'] == 'logout'){
 	logout();
-}?>
+}
 
+if( isset($_GET['submit']) )
+{ 
+$user_id = $_GET['id'];
+$voornaam = $_GET['voornaam'];
+$tussenvoegsel = htmlentities($_GET['tussenvoegsel']);
+$achternaam = htmlentities($_GET['achternaam']);
+$geslacht = htmlentities($_GET['geslacht']);
+$adres = htmlentities($_GET['adres']);
+$huisnummer = $_GET['huisnummer'];
+$postcode = htmlentities($_GET['postcode']);
+$geboortedatum = htmlentities($_GET['geboortedatum']);
+$telefoonnummer = htmlentities($_GET['telefoonnummer']);
+$email = htmlentities($_GET['email']);
+
+$sql = "UPDATE user SET voornaam='".$voornaam."', tussenvoegsel='".$tussenvoegsel."', achternaam='".$achternaam."', geslacht='".$geslacht."', adres='".$adres."', huisnummer='".$huisnummer."', postcode='".$postcode."',geboortedatum='".$geboortedatum."', telefoonnummer='".$telefoonnummer."' , email='".$email."' WHERE user_id='".$user_id."'";
+
+if (mysqli_query($db, $sql)) {
+} else {
+    echo "Error updating record: " . mysqli_error($db);
+}
+}?>
 <html class=""><head>
 
 <head>
 <title> Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
-
-function drawChart() {
-
-    var data = google.visualization.arrayToDataTable([
-      ['Language', 'Rating'],
-      <?php
-	  	$sql = "SELECT thema,sum(views) FROM product where Custom = 0 group by thema";
-	$result = mysqli_query($db, $sql);
-      if($result->num_rows > 0){
-          while($row = $result->fetch_assoc()){
-            echo "['".$row['thema']."', ".$row['sum(views)']."],";
-          }
-      }
-      ?>
-    ]);
-    
-    var options = {
-        title: 'Views per Categorie',
-        width: 400,
-        height: 300,
-		chartArea:{left:2,top:20,width:"90%",height:"90%"}
-    };
-    
-    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-    
-    chart.draw(data, options);
-}
-    </script>
-	    <script type="text/javascript">
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
-
-function drawChart() {
-
-    var data = google.visualization.arrayToDataTable([
-      ['Language', 'Rating'],
-      <?php
-	  	$sql = "SELECT p.thema, sum(op.product_amount) qty
-from product p
-left outer join order_products op on op.fk_product_id = p.Product_id
-left outer join webshop.order o on o.order_id = op.fk_order_id
-where o.shipped != 'Nee'
-group by p.thema
-order by qty desc";
-	$result = mysqli_query($db, $sql);
-      if($result->num_rows > 0){
-          while($row = $result->fetch_assoc()){
-            echo "['".$row['thema']."', ".$row['qty']."],";
-          }
-      }
-      ?>
-    ]);
-    
-    var options = {
-        title: 'Sales per Categorie',
-        width: 400,
-        height: 300,
-		chartArea:{left:2,top:20,width:"90%",height:"90%"}
-    };
-    
-    var chart = new google.visualization.PieChart(document.getElementById('piechart2'));
-    
-    chart.draw(data, options);
-}
-    </script>
 <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|PT+Sans|Roboto|Roboto+Slab|Titillium+Web" rel="stylesheet">
 <style class="cp-pen-styles">* { box-sizing:border-box; }
 
@@ -195,6 +146,112 @@ tr:first-child th:nth-child(1) {
 tr:first-child th:last-child { 
   border-radius: 0 5px 0 0; 
 }
+
+
+.form-container {
+   border: 1px solid #f2e3d2;
+   background: #f2e3d2;
+   background: -webkit-gradient(linear, left top, left bottom, from(#f2e3d2), to(#f2e3d2));
+   background: -webkit-linear-gradient(top, #f2e3d2, #f2e3d2);
+   background: -moz-linear-gradient(top, #f2e3d2, #f2e3d2);
+   background: -ms-linear-gradient(top, #f2e3d2, #f2e3d2);
+   background: -o-linear-gradient(top, #f2e3d2, #f2e3d2);
+   background-image: -ms-linear-gradient(top, #f2e3d2 0%, #f2e3d2 100%);
+   -webkit-border-radius: 0px;
+   -moz-border-radius: 0px;
+   border-radius: 0px;
+   -webkit-box-shadow: rgba(000,000,000,0.9) 0 0px 2px, inset rgba(255,255,255,0.4) 0 0px 0;
+   -moz-box-shadow: rgba(000,000,000,0.9) 0 0px 2px, inset rgba(255,255,255,0.4) 0 0px 0;
+   box-shadow: rgba(000,000,000,0.9) 0 0px 2px, inset rgba(255,255,255,0.4) 0 0px 0;
+   font-family: 'Helvetica Neue',Helvetica,sans-serif;
+   text-decoration: none;
+   vertical-align: middle;
+   min-width:300px;
+   padding:20px;
+   width:80%;
+   margin:0 auto;
+   }
+.form-field {
+   border: 1px solid #c9b7a2;
+   background: #e4d5c3;
+   -webkit-border-radius: 0px;
+   -moz-border-radius: 0px;
+   border-radius: 0px;
+   color: #c9b7a2;
+   -webkit-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+   -moz-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+   box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+   padding:8px;
+   margin-bottom:20px;
+   width:280px;
+   }
+.form-field:focus {
+   background: #fff;
+   color: #725129;
+   }
+.form-container h2 {
+   text-shadow: #fdf2e4 0 1px 0;
+   font-size:18px;
+   margin: 0 0 10px 0;
+   font-weight:bold;
+   text-align:center;
+    }
+.form-title {
+   margin-bottom:10px;
+   color: #725129;
+   text-shadow: #fdf2e4 0 1px 0;
+   }
+.submit-container {
+   margin:8px 0;
+   text-align:right;
+   }
+.submit-button {
+   border: 1px solid #447314;
+   background: #6aa436;
+   background: -webkit-gradient(linear, left top, left bottom, from(#8dc059), to(#6aa436));
+   background: -webkit-linear-gradient(top, #8dc059, #6aa436);
+   background: -moz-linear-gradient(top, #8dc059, #6aa436);
+   background: -ms-linear-gradient(top, #8dc059, #6aa436);
+   background: -o-linear-gradient(top, #8dc059, #6aa436);
+   background-image: -ms-linear-gradient(top, #8dc059 0%, #6aa436 100%);
+   -webkit-border-radius: 0px;
+   -moz-border-radius: 0px;
+   border-radius: 0px;
+   -webkit-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 0px 0;
+   -moz-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 0px 0;
+   box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 0px 0;
+   text-shadow: #addc7e 0 1px 0;
+   color: #31540c;
+   font-family: helvetica, serif;
+   padding: 8.5px 18px;
+   font-size: 14px;
+   text-decoration: none;
+   vertical-align: middle;
+   }
+.submit-button:hover {
+   border: 1px solid #447314;
+   text-shadow: #31540c 0 1px 0;
+   background: #6aa436;
+   background: -webkit-gradient(linear, left top, left bottom, from(#8dc059), to(#6aa436));
+   background: -webkit-linear-gradient(top, #8dc059, #6aa436);
+   background: -moz-linear-gradient(top, #8dc059, #6aa436);
+   background: -ms-linear-gradient(top, #8dc059, #6aa436);
+   background: -o-linear-gradient(top, #8dc059, #6aa436);
+   background-image: -ms-linear-gradient(top, #8dc059 0%, #6aa436 100%);
+   color: #fff;
+   }
+.submit-button:active {
+   text-shadow: #31540c 0 1px 0;
+   border: 1px solid #447314;
+   background: #8dc059;
+   background: -webkit-gradient(linear, left top, left bottom, from(#6aa436), to(#6aa436));
+   background: -webkit-linear-gradient(top, #6aa436, #8dc059);
+   background: -moz-linear-gradient(top, #6aa436, #8dc059);
+   background: -ms-linear-gradient(top, #6aa436, #8dc059);
+   background: -o-linear-gradient(top, #6aa436, #8dc059);
+   background-image: -ms-linear-gradient(top, #6aa436 0%, #8dc059 100%);
+   color: #fff;
+   }	
 </style></head>
 <body>
 <div class="wrapper">
@@ -205,9 +262,9 @@ tr:first-child th:last-child {
 				<a href="#" class="simple-text"> Shop </a>
 			</div>
 			<ul class="nav"> 
-			<li> <a href="products.php"> Producten </a></li>
+			<li>  <a href="http://localhost/fetch.php"> Winkel </a></li>
 			<li> <a href="orders.php"> Orders </a></li>	
-			<li> <a href="users.php"> Klanten </a></li>				
+			<li class="active"> <a href="settings.php"> Instellingen </a></li>			
 			<!--<li> <a href="#"> Profile </a></li> -->
 			<li> <a href="index.php?action=logout"> Log out </a></li>
 			</ul>
@@ -225,44 +282,65 @@ tr:first-child th:last-child {
 		<div class="content"> 
 			<div class="CenterForm">
 				<hgroup>
-			      <h1>Admin Dashboard</h1>
+			      <h1>Accountinformatie</h1>
 			    </hgroup>
-
-</div>
-				<div id="chart_holder" style="margin:0 auto;width:50%">
-				<div style="float:left;" id="piechart"></div>
-				<div style="float:left;" id="piechart2"></div>
-				</div>
 				
-<div style=";width: 500px;    margin: 0 auto;    z-index: 99;    display: block;  ">
-			<table style="width:495px;">
-			<tr>
-			<td>Aantal Patches</td>											<?php 
-				$sql = "SELECT count(*) ct FROM product where Custom = 0";	
+			</div>
+						<div style=";width: 1405px;    margin: 0 auto;    z-index: 99;    display: block;  ">
+				<?php 
+				$sql = "SELECT * FROM user WHERE user_id= '".$_SESSION['user_id']."' ";	
 				$result = mysqli_query($db, $sql);
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
     while($row = mysqli_fetch_assoc($result)) {
-        echo "			<td>" . $row["ct"]. "</td>";
+        echo "Hallo ". $row["voornaam"]. " " . $row["tussenvoegsel"]. "" . $row["achternaam"]. "";
     }
-				$sql = "select sum(views) v from product where Custom = 0";	
-				$result = mysqli_query($db, $sql);
-				    while($row = mysqli_fetch_assoc($result)) {
-		echo "</tr><tr><td>Aantal Views</td>";
-        echo "			<td>" . $row["v"]. "</td>";
-    }
-				$sql = "SELECT count(*) o FROM webshop.order";	
-				$result = mysqli_query($db, $sql);
-				    while($row = mysqli_fetch_assoc($result)) {
-		echo "</tr><tr><td>Aantal Orders</td>";
-        echo "			<td>" . $row["o"]. "</td>";
-    }
-					$sql = "SELECT count(*) u FROM user where rol = 1 and verificatie = 1";	
-				$result = mysqli_query($db, $sql);
-				    while($row = mysqli_fetch_assoc($result)) {
-		echo "</tr><tr><td>Aantal Gebruikers</td>";
-        echo "			<td>" . $row["u"]. "</td>";
-    }
+} else {
+    echo "0 results";
+}
+
 ?>
-</table>
+				</div>
+							<div style="background:white; width: 140-px;    margin: 0 auto;    z-index: 99;    display: block;  ">
+				<?php 
+				$sql = "SELECT * FROM user WHERE user_id= '".$_SESSION['user_id']."' ";	
+				$result = mysqli_query($db, $sql);
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+
+    while($row = mysqli_fetch_assoc($result)) {
+			if($row["rol"] == 2){
+
+	}
+	else{
+				echo "<div class='form-container'>";
+        echo "<form action='' method='get' style='width:600px;margin:0 auto;'>";
+		echo "<div style='float: left;margin-right: 15px;'><div class='form-title'>Voornaam : </div><input class='form-field' type='text' name='voornaam' value=".$row["voornaam"]."></div>";
+		echo "<div><div class='form-title'>Tussenvoegsel : </div><input class='form-field' type='text' name='tussenvoegsel' value=".$row["tussenvoegsel"]."></div>";
+
+		echo "<div style='float: left;margin-right: 15px;'><div class='form-title'>Achternaam : </div><input class='form-field' type='text' name='achternaam' value=".$row["achternaam"]."></div>";
+
+		echo "<div><div class='form-title'>Geslacht : </div><select class='form-field' name='geslacht'><option value='".$row["geslacht"]."'>".$row["geslacht"]."</option> <option value='Meneer'>Meneer</option> <option value='Mevrouw'>Mevrouw</option><option value='Overig'>Overig</option></select></div>";
+
+		echo "<div style='float: left;margin-right: 15px;'><div class='form-title'>Adres : </div><input class='form-field' type='text' name='adres' value=\"$row[adres]\"></div>";
+		echo "<div><div class='form-title'>Huisnummer : </div><input class='form-field' type='text' name='huisnummer' value=".$row["huisnummer"]."></div>";
+
+		echo "<div style='float: left;margin-right: 15px;'><div class='form-title'>Postcode  : </div><input class='form-field' type='text' name='postcode' value=".$row["postcode"]."></div>";
+
+		echo "<div><div class='form-title'>Geboortedatum : </div><input class='form-field' type='date' name='geboortedatum' value=".$row["geboortedatum"]."></div>";
+
+		echo "<div style='float: left;margin-right: 15px;'><div class='form-title'>Telefoon : </div><input class='form-field' type='text' name='telefoonnummer' value=".$row["telefoonnummer"]."></div>";
+
+		echo "<div><div class='form-title'>Email : </div><input class='form-field'  type='text' name='email' value=".$row["email"]."></div>";
+
+		echo "<input class='submit-button'  type='submit' name='submit' ></input>";
+		echo "<input type='hidden' name='id' value='".$_SESSION['user_id']."'>";
+		echo "</div>";
+	}
+}
+}
+
+?>
 				</div>
 		</div>
 		<footer class="footer">

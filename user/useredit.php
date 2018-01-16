@@ -26,7 +26,7 @@ if (mysqli_query($db, $sql)) {
 } else {
     echo "Error updating record: " . mysqli_error($db);
 }
-}?>
+}?>	
 <html class=""><head>
 
 <head>
@@ -269,7 +269,7 @@ td{
 			</div>
 			<ul class="nav"> 
 			<li class="active"><a href="products.php"> Producten </a></li>
-			<li> <a href="orders.php"> Orders </a></li>	
+			<li> <a href="#"> Orders </a></li>	
 			<li> <a href="users.php"> Klanten </a></li>				
 			<!--<li> <a href="#"> Profile </a></li> -->
 			<li> <a href="index.php?action=logout"> Log out </a></li>

@@ -145,7 +145,7 @@ tr:first-child th:last-child {
 			</div>
 			<ul class="nav"> 
 			<li> <a href="products.php"> Producten </a></li>
-			<li> <a href="#"> Orders </a></li>	
+			<li> <a href="orders.php"> Orders </a></li>	
 			<li class="active">  <a href="users.php"> Klanten </a></li>				
 			<!--<li> <a href="#"> Profile </a></li> -->
 			<li> <a href="index.php?action=logout"> Log out </a></li>

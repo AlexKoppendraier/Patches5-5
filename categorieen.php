@@ -1,4 +1,8 @@
 <?php
+
+
+require_once("functions.php"); 
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -35,7 +39,7 @@ if ($conn->connect_error) {
         <div class="searchbar"><form action="search.php" method="GET">
                 <input class="search invis" name="query" type="text" placeholder="Waar ben je naar op zoek?" required>
                 <input class="button invis" type="submit" value="Zoeken">
-                <div class="button basketbar"><a href="#"><img style="height:45px;" src="img/cart.png"></img></a></div>
+               <div class="button basketbar"><a href="cartsession.php">		<img style="height:45px;" src="img/cart.png"></img></a></div>
         </div>								
 								
 </form>	</div>
@@ -43,11 +47,23 @@ if ($conn->connect_error) {
     <label for="show-menu" class="show-menu">Toon Menu</label>
     <input type="checkbox" id="show-menu" role="button">
         <ul id="menu">
-        <li><a href="categorieen.php">Categorieën</a></li>
-        <li><a href="custompatch.php">Eigen Ontwerp</a></li>
-        <li><a href="#">Over Ons</a></li>
-        <li><a href="#">Contact</a></li>
-		<li><a href="/user">Inloggen</a></li>
+            <li><a href="categorieen.php">Categorieën</a></li>
+						<?php
+			if(isset($_SESSION['user_id'])) {  
+	            echo "<li><a href='custompatch.php'>Eigen Ontwerp</a></li>";			
+			}
+			?>
+
+            <li><a href="about.php">Over Ons</a></li>
+            <li><a href="contact.php">Contact</a></li>
+			<?php
+			if(isset($_SESSION['user_id'])) {  
+            echo "<li><a href='user/index.php'>Profiel</a></li>";
+			}
+			else{
+	            echo "<li><a href='user'>Registreren / Inloggen</a></li>";			
+			}
+			?>
         <li class="searchbarmobile"><form action="search.php" method="GET">
                     <input class="search" name="query" type="text" placeholder="Waar ben je naar op zoek?" required>
                     <input class="button" type="submit" value="Zoeken">
@@ -67,59 +83,70 @@ if ($conn->connect_error) {
 	<li class="dropdown">
 		<a class="dropcategory">Thema</a>
 		<div class="dropdown-content">
-			<a href="categorieen.php?filterthema=Helden">Helden</a>
-			<a href="categorieen.php?filterthema=Vlaggen">Vlaggen</a>
-			<a href="categorieen.php?filterthema=Leger">Leger</a>
-			<a href="categorieen.php?filterthema=Autos">Autos</a>
-			<a href="categorieen.php?filterthema=Steden">Steden</a>
-			<a href="categorieen.php?filterthema=Dieren">Dieren</a>
-			<a href="categorieen.php?filterthema=Overig">Overig</a>
+		<?php $sql = "select thema from product where thema != '' group by thema ";
+						$result = mysqli_query($db, $sql);
+if (mysqli_num_rows($result) > 0) {
+    while($row = mysqli_fetch_assoc($result)) {
+		echo "<a href='categorieen.php?filterthema=" . $row["thema"]. "'>".$row["thema"]."</a>";
+	}
+}
+?>
 	</div>
 	</li>
     
 	<li class="dropdown">
     <a class="dropcategory">Kleur</a>
     <div class="dropdown-content">
-      <a href="categorieen.php?filterkleur=Wit">Wit</a>
-      <a href="categorieen.php?filterkleur=Zwart">Zwart</a>
-      <a href="categorieen.php?filterkleur=Grijs">Grijs</a>
-	  <a href="categorieen.php?filterkleur=Rood">Rood</a>
-	  <a href="categorieen.php?filterkleur=Blauw">Blauw</a>
-	  <a href="categorieen.php?filterkleur=Groen">Groen</a>
-	  <a href="categorieen.php?filterkleur=Geel">Geel</a>
-	  <a href="categorieen.php?filterkleur=Oranje">Oranje</a>
+		<?php $sql = "select kleur from product where kleur != '' group by kleur";
+						$result = mysqli_query($db, $sql);
+if (mysqli_num_rows($result) > 0) {
+    while($row = mysqli_fetch_assoc($result)) {
+		echo "<a href='categorieen.php?filterkleur=" . $row["kleur"]. "'>".$row["kleur"]."</a>";
+	}
+}
+?>
 	</div>
 	</li>
 	
 	<li class="dropdown">
     <a class="dropcategory">Vorm</a>
     <div class="dropdown-content">
-      <a href="categorieen.php?filtervorm=Vierkant">Vierkant</a>
-      <a href="categorieen.php?filtervorm=Rond">Rond</a>
-	  <a href="categorieen.php?filtervorm=Rechthoek">Rechthoek</a>
-      <a href="categorieen.php?filtervorm=Schild">Schild</a>
+		<?php $sql = "select vorm from product where vorm != '' group by vorm";
+						$result = mysqli_query($db, $sql);
+if (mysqli_num_rows($result) > 0) {
+    while($row = mysqli_fetch_assoc($result)) {
+		echo "<a href='categorieen.php?filtervorm=" . $row["vorm"]. "'>".$row["vorm"]."</a>";
+	}
+}
+?>
 	</div>
 	</li>
 	
 	<li class="dropdown">
     <a class="dropcategory">Formaat</a>
     <div class="dropdown-content">
-      <a href="categorieen.php?filterformaat=40x40">40x40</a>
-      <a href="categorieen.php?filterformaat=40x60">40x60</a>
-      <a href="categorieen.php?filterformaat=45x60">45x60</a>
-	  <a href="categorieen.php?filterformaat=50x50">50x50</a>
-	  <a href="categorieen.php?filterformaat=50x55">50x55</a>
-	  <a href="categorieen.php?filterformaat=50x60">50x60</a>
-	  <a href="categorieen.php?filterformaat=55x60">55x60</a>
-	  <a href="categorieen.php?filterformaat=60x40">60x40</a>
-	  <a href="categorieen.php?filterformaat=60x60">60x60</a>
+		<?php $sql = "select formaat from product where formaat != '' group by formaat";
+						$result = mysqli_query($db, $sql);
+if (mysqli_num_rows($result) > 0) {
+    while($row = mysqli_fetch_assoc($result)) {
+		echo "<a href='categorieen.php?filterformaat=" . $row["formaat"]. "'>".$row["formaat"]."</a>";
+	}
+}
+?>
 	</div>
 	</li>
 	
 	<li class="dropdown">
     <a class="dropcategory">Materiaal</a>
     <div class="dropdown-content">
-      <a href="categorieen.php?filtermateriaal=Katoen">Katoen</a>
+		<?php $sql = "select materiaal from product where materiaal != '' group by materiaal";
+						$result = mysqli_query($db, $sql);
+if (mysqli_num_rows($result) > 0) {
+    while($row = mysqli_fetch_assoc($result)) {
+		echo "<a href='categorieen.php?filtermateriaal=" . $row["materiaal"]. "'>".$row["materiaal"]."</a>";
+	}
+}
+?>
 	</div>
 	</li>
 	
@@ -148,7 +175,7 @@ if ($conn->connect_error) {
     if(isset($_GET['filterthema'])) {
 		$themafilter = $_GET['filterthema'];
 		//Selecteer producten
-		$sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product WHERE thema LIKE '%".$themafilter."%'";
+		$sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product WHERE thema LIKE '%".$themafilter."%' AND Custom like '0'";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 // output data of each row
@@ -170,7 +197,7 @@ if ($conn->connect_error) {
     else if(isset($_GET['filterkleur'])) {
 		$kleurfilter = $_GET['filterkleur'];
 		//Selecteer producten
-		$sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product WHERE kleur LIKE '%".$kleurfilter."%'";
+		$sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product WHERE kleur LIKE '%".$kleurfilter."%' AND Custom like '0'";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 // output data of each row
@@ -192,7 +219,7 @@ if ($conn->connect_error) {
     else if(isset($_GET['filtervorm'])) {
 		$vormfilter = $_GET['filtervorm'];
 		//Selecteer producten
-		$sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product WHERE vorm LIKE '%".$vormfilter."%'";
+		$sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product WHERE Custom like '0' and vorm LIKE '%".$vormfilter."%'";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 // output data of each row
@@ -214,7 +241,7 @@ if ($conn->connect_error) {
     else if(isset($_GET['filterformaat'])) {
 		$formaatfilter = $_GET['filterformaat'];
 		//Selecteer producten
-		$sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product WHERE formaat LIKE '%".$formaatfilter."%'";
+		$sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product WHERE Custom like '0' and formaat LIKE '%".$formaatfilter."%'";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 // output data of each row
@@ -236,7 +263,7 @@ if ($conn->connect_error) {
     else if(isset($_GET['filtermateriaal'])) {
 		$materiaalfilter = $_GET['filtermateriaal'];
 		//Selecteer producten
-		$sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product WHERE materiaal LIKE '%".$materiaalfilter."%'";
+		$sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product WHERE Custom like '0' and materiaal LIKE '%".$materiaalfilter."%'";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 // output data of each row
@@ -259,7 +286,7 @@ if ($conn->connect_error) {
 		$minprijs = $_GET['minprijs'];
 		$maxprijs = $_GET['maxprijs'];
 		//Selecteer producten
-		$sql = "SELECT * FROM product WHERE prodcuct_prijs between ".$minprijs." and  ".$maxprijs." ";
+		$sql = "SELECT * FROM product WHERE Custom like '0' and prodcuct_prijs between ".$minprijs." and  ".$maxprijs." ";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 // output data of each row
@@ -279,7 +306,7 @@ if ($conn->connect_error) {
 	}
 	
 	else {
-			$sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product";
+			$sql = "SELECT Product_id, product_name, prodcuct_prijs FROM product where Custom like '0'";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 // output data of each row

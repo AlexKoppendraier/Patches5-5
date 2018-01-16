@@ -1,5 +1,8 @@
 
 <?php
+
+require_once("functions.php"); 
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -13,7 +16,6 @@ $conn = new mysqli($servername, $username, $password, $mysql_name);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
 ?>
 
 <html>
@@ -36,7 +38,7 @@ if ($conn->connect_error) {
         <div class="searchbar"><form action="search.php" method="GET">
                 <input class="search invis" name="query" type="text" placeholder="Waar ben je naar op zoek?" required>
                 <input class="button invis" type="submit" value="Zoeken">
-                <div class="button basketbar"><a href="#"><img style="height:45px;" src="img/cart.png"></img></a></div>
+               <div class="button basketbar"><a href="basket.php"	<img style="height:45px;" src="img/cart.png"></img></a></div>
         </div>
 
         </form>	</div>
@@ -45,10 +47,21 @@ if ($conn->connect_error) {
         <input type="checkbox" id="show-menu" role="button">
         <ul id="menu">
             <li><a href="categorieen.php">Categorieën</a></li>
-            <li><a href="custompatch.php">Eigen Ontwerp</a></li>
-            <li><a href="about.html">Over Ons</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="/user">Inloggen</a></li>
+						<?php
+			if(isset($_SESSION['user_id'])) {  
+	            echo "<li><a href='custompatch.php'>Eigen Ontwerp</a></li>";			
+			}
+			?>
+            <li><a href="about.php">Over Ons</a></li>
+            <li><a href="contact.php">Contact</a></li>
+			<?php
+			if(isset($_SESSION['user_id'])) {  
+            echo "<li><a href='user/index.php'>Profiel</a></li>";
+			}
+			else{
+	            echo "<li><a href='user'>Registreren / Inloggen</a></li>";			
+			}
+			?>
             <li class="searchbarmobile"><form action="search.php" method="GET">
                     <input class="search" name="query" type="text" placeholder="Waar ben je naar op zoek?" required>
                     <input class="button" type="submit" value="Zoeken">
@@ -64,7 +77,7 @@ if ($conn->connect_error) {
         <hr>
         <div class="productview">
             <?php
-            $popsql = "SELECT Product_id, product_name, prodcuct_prijs,custom_patch, views from product where custom_patch LIKE '0' ORDER BY views DESC LIMIT 5;";
+            $popsql = "SELECT Product_id, product_name, prodcuct_prijs, views from product where Custom like '0' ORDER BY views DESC LIMIT 5";
             $result = $conn->query($popsql);
             if ($result->num_rows > 0) {
                 // output data of each row
@@ -94,7 +107,7 @@ if ($conn->connect_error) {
         <div class="productview">
 
             <?php
-            $sql = "SELECT Product_id, product_name, prodcuct_prijs, custom_patch from product where custom_patch LIKE '0' ORDER BY Product_id DESC LIMIT 5";
+            $sql = "SELECT Product_id, product_name, prodcuct_prijs from product where Custom like '0' ORDER BY Product_id DESC LIMIT 5";
             $result = $conn->query($sql);
             
 			if ($result->num_rows > 0) {

@@ -1,3 +1,9 @@
+
+<?php
+
+require_once("functions.php"); 
+?>
+
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -17,7 +23,7 @@
         <div class="searchbar"><form action="search.php" method="GET">
                 <input class="search invis" name="query" type="text" placeholder="Waar ben je naar op zoek?" required>
                 <input class="button invis" type="submit" value="Zoeken">
-                <div class="button basketbar"><a href="#"><img style="height:45px;" src="img/cart.png"></img></a></div>
+               <div class="button basketbar"><a href="cartsession.php">	<img style="height:45px;" src="img/cart.png"></img></a></div>
         </div>								
 								
 </form>	</div>
@@ -25,11 +31,23 @@
     <label for="show-menu" class="show-menu">Toon Menu</label>
     <input type="checkbox" id="show-menu" role="button">
         <ul id="menu">
-        <li><a href="categorieen.php">Categorieën</a></li>
-        <li><a href="custompatch.php">Eigen Ontwerp</a></li>
-        <li><a href="#">Over Ons</a></li>
-        <li><a href="#">Contact</a></li>
-		<li><a href="/user">Inloggen</a></li>
+            <li><a href="categorieen.php">Categorieën</a></li>
+						<?php
+			if(isset($_SESSION['user_id'])) {  
+	            echo "<li><a href='custompatch.php'>Eigen Ontwerp</a></li>";			
+			}
+			?>
+
+            <li><a href="about.php">Over Ons</a></li>
+            <li><a href="contact.php">Contact</a></li>
+			<?php
+			if(isset($_SESSION['user_id'])) {  
+            echo "<li><a href='user/index.php'>Profiel</a></li>";
+			}
+			else{
+	            echo "<li><a href='user'>Registreren / Inloggen</a></li>";			
+			}
+			?>
         <li class="searchbarmobile"><form action="search.php" method="GET">
                     <input class="search" name="query" type="text" placeholder="Waar ben je naar op zoek?" required>
                     <input class="button" type="submit" value="Zoeken">
@@ -41,12 +59,15 @@
 	
 	
 	
-	<div class="patchupload">
+	<div class="patchupload" style="width:500px;">
+	<div class="form-container">
 	Select patch image to upload:
-	<form action="patchupload.php" method="post" enctype="multipart/form-data">
-    <input type="file" name="CustomPatch" id="CustomPatch">
-    <input type="submit" value="Upload Patch" name="submit">
+	<form action='patchimgupload.php' method='post' enctype='multipart/form-data'>
+	<input type='file' name='image' id='image'>
+	<input type='submit'  class='submit-button' name='submit'		value='Upload foto'/>
+
 	</form>
+	</div>
 	</div>
 	
 	<footer>

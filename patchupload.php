@@ -1,3 +1,7 @@
+<?php
+ require_once("functions.php");
+ 	global $db; 
+?>
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -17,7 +21,7 @@
         <div class="searchbar"><form action="search.php" method="GET">
                 <input class="search invis" name="query" type="text" placeholder="Waar ben je naar op zoek?" required>
                 <input class="button invis" type="submit" value="Zoeken">
-                <div class="button basketbar"><a href="#"><img style="height:45px;" src="img/cart.png"></img></a></div>
+               <div class="button basketbar"><a href="basket.php"	<img style="height:45px;" src="img/cart.png"></img></a></div>
         </div>								
 								
 </form>	</div>
@@ -25,11 +29,23 @@
     <label for="show-menu" class="show-menu">Toon Menu</label>
     <input type="checkbox" id="show-menu" role="button">
         <ul id="menu">
-        <li><a href="categorieen.php">Categorieën</a></li>
-        <li><a href="custompatch.php">Eigen Ontwerp</a></li>
-        <li><a href="#">Over Ons</a></li>
-        <li><a href="#">Contact</a></li>
-		<li><a href="/user">Inloggen</a></li>
+            <li><a href="categorieen.php">Categorieën</a></li>
+						<?php
+			if(isset($_SESSION['user_id'])) {  
+	            echo "<li><a href='custompatch.php'>Eigen Ontwerp</a></li>";			
+			}
+			?>
+
+            <li><a href="about.php">Over Ons</a></li>
+            <li><a href="contact.php">Contact</a></li>
+			<?php
+			if(isset($_SESSION['user_id'])) {  
+            echo "<li><a href='user/index.php'>Profiel</a></li>";
+			}
+			else{
+	            echo "<li><a href='user'>Registreren / Inloggen</a></li>";			
+			}
+			?>
         <li class="searchbarmobile"><form action="search.php" method="GET">
                     <input class="search" name="query" type="text" placeholder="Waar ben je naar op zoek?" required>
                     <input class="button" type="submit" value="Zoeken">
@@ -39,46 +55,25 @@
       </nav>
     </header>
 
-<div class="patchupload">
+<div class="patchupload" >
 <?php
-$target_dir = "patchcustom/";
-$target_file = $target_dir . basename($_FILES["CustomPatch"]["name"]);
-$uploadOk = 1;
-$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-// Check of er al een bestand bestaat met dezelfde naam
-if (file_exists($target_file)) {
-    echo "Er is al een bestand geupload met dezelfde naam. Geef het bestand een andere naam en probeer het opnieuw.";
-    $uploadOk = 0;
-}
-// Check of de foto wel een foto is
-if ($uploadOk != 0) {
-if(isset($_POST["submit"])) {
-    $check = getimagesize($_FILES["CustomPatch"]["tmp_name"]);
-    if($check !== false) {
-        $uploadOk = 1;
-    } else {
-        echo "Het verzonden bestand is geen foto, probeer opnieuw.";
-        $uploadOk = 0;
-    }
-}
-}
-// Sta alleen jpeg en png toe
-if ($uploadOk != 0) {
-if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-    echo "Sorry, alleen bestanden van JPG, JPEG & PNG formaat zijn toegestaan.";
-    $uploadOk = 0;
-}
-}
-// Check of de foto geupload kan worden
-if ($uploadOk != 0) {
-if (move_uploaded_file($_FILES["CustomPatch"]["tmp_name"], $target_file)) {
-    echo "Het bestand ". basename( $_FILES["CustomPatch"]["name"]). " is geupload.";
-}
-else {
-	echo "Sorry, er is iets misgegaan tijdens het uploaden van het bestand.";
-}
+$sql = "SELECT * FROM product ORDER BY Product_id DESC LIMIT 1";
+$result = mysqli_query($db, $sql);
+    while($row = mysqli_fetch_assoc($result)) {
+		echo "".$row["Product_id"]."";
+				echo "<div><img src=\"GetProductImage.php?Product_id=$row[Product_id]\",, height=\"150\"></img></div>";
 }
 ?>	
+<div class="form-container" style="width:500px;margin:0 auto;">
+	<form action="patchimgupload.php" method="post" enctype="multipart/form-data">
+	<div class="form-title" style="float: left;margin-right: 15px;margin-top:7px;">Patch Naam : </div><input class="form-field" type="text" name="product_name">
+	<div class="form-title" style="float: left;margin-right: 35px;margin-top:7px;">Materiaal : </div><select class="form-field" type="text" name="materiaal"><option value='wol'>Wol</option><option value='metaal'>Metaal</option><option value='katoen'>Katoen</option></select>
+	<div class="form-title" style="float: left;margin-right: 40px;margin-top:7px;">Formaat : </div><input style="width:130px;"  class="form-field" type="text" name="breedte" placeholder="breedte (mm)" > x <input style="width:130px;"  class="form-field" type="text" name="hoogte" placeholder="hoogte (mm)" >
+	<div class="form-title" style="float: left;margin-right: 65px;margin-top:7px;">Dikte : </div><input  class="form-field" type="text" name="dikte" placeholder="dikte (mm)" >
+	<input type="submit"  class="submit-button" name="submitpart2"		value="Doorgaan"/>
+
+	</form>
+	</div>
 </div>
 	<footer>
   		<p>&copy;2014 Copyright info here...</p>

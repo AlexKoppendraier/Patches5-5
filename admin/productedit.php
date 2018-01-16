@@ -156,6 +156,111 @@ td{
 ::placeholder { /* Most modern browsers support this now. */
    color:    #000;
 }
+
+.form-container {
+   border: 1px solid #f2e3d2;
+   background: #f2e3d2;
+   background: -webkit-gradient(linear, left top, left bottom, from(#f2e3d2), to(#f2e3d2));
+   background: -webkit-linear-gradient(top, #f2e3d2, #f2e3d2);
+   background: -moz-linear-gradient(top, #f2e3d2, #f2e3d2);
+   background: -ms-linear-gradient(top, #f2e3d2, #f2e3d2);
+   background: -o-linear-gradient(top, #f2e3d2, #f2e3d2);
+   background-image: -ms-linear-gradient(top, #f2e3d2 0%, #f2e3d2 100%);
+   -webkit-border-radius: 0px;
+   -moz-border-radius: 0px;
+   border-radius: 0px;
+   -webkit-box-shadow: rgba(000,000,000,0.9) 0 0px 2px, inset rgba(255,255,255,0.4) 0 0px 0;
+   -moz-box-shadow: rgba(000,000,000,0.9) 0 0px 2px, inset rgba(255,255,255,0.4) 0 0px 0;
+   box-shadow: rgba(000,000,000,0.9) 0 0px 2px, inset rgba(255,255,255,0.4) 0 0px 0;
+   font-family: 'Helvetica Neue',Helvetica,sans-serif;
+   text-decoration: none;
+   vertical-align: middle;
+   min-width:300px;
+   padding:20px;
+   width:80%;
+   margin:0 auto;
+   }
+.form-field {
+   border: 1px solid #c9b7a2;
+   background: #e4d5c3;
+   -webkit-border-radius: 0px;
+   -moz-border-radius: 0px;
+   border-radius: 0px;
+   color: #c9b7a2;
+   -webkit-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+   -moz-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+   box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+   padding:8px;
+   margin-bottom:20px;
+   width:280px;
+   }
+.form-field:focus {
+   background: #fff;
+   color: #725129;
+   }
+.form-container h2 {
+   text-shadow: #fdf2e4 0 1px 0;
+   font-size:18px;
+   margin: 0 0 10px 0;
+   font-weight:bold;
+   text-align:center;
+    }
+.form-title {
+   margin-bottom:10px;
+   color: #725129;
+   text-shadow: #fdf2e4 0 1px 0;
+   }
+.submit-container {
+   margin:8px 0;
+   text-align:right;
+   }
+.submit-button {
+   border: 1px solid #447314;
+   background: #6aa436;
+   background: -webkit-gradient(linear, left top, left bottom, from(#8dc059), to(#6aa436));
+   background: -webkit-linear-gradient(top, #8dc059, #6aa436);
+   background: -moz-linear-gradient(top, #8dc059, #6aa436);
+   background: -ms-linear-gradient(top, #8dc059, #6aa436);
+   background: -o-linear-gradient(top, #8dc059, #6aa436);
+   background-image: -ms-linear-gradient(top, #8dc059 0%, #6aa436 100%);
+   -webkit-border-radius: 0px;
+   -moz-border-radius: 0px;
+   border-radius: 0px;
+   -webkit-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 0px 0;
+   -moz-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 0px 0;
+   box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 0px 0;
+   text-shadow: #addc7e 0 1px 0;
+   color: #31540c;
+   font-family: helvetica, serif;
+   padding: 8.5px 18px;
+   font-size: 14px;
+   text-decoration: none;
+   vertical-align: middle;
+   }
+.submit-button:hover {
+   border: 1px solid #447314;
+   text-shadow: #31540c 0 1px 0;
+   background: #6aa436;
+   background: -webkit-gradient(linear, left top, left bottom, from(#8dc059), to(#6aa436));
+   background: -webkit-linear-gradient(top, #8dc059, #6aa436);
+   background: -moz-linear-gradient(top, #8dc059, #6aa436);
+   background: -ms-linear-gradient(top, #8dc059, #6aa436);
+   background: -o-linear-gradient(top, #8dc059, #6aa436);
+   background-image: -ms-linear-gradient(top, #8dc059 0%, #6aa436 100%);
+   color: #fff;
+   }
+.submit-button:active {
+   text-shadow: #31540c 0 1px 0;
+   border: 1px solid #447314;
+   background: #8dc059;
+   background: -webkit-gradient(linear, left top, left bottom, from(#6aa436), to(#6aa436));
+   background: -webkit-linear-gradient(top, #6aa436, #8dc059);
+   background: -moz-linear-gradient(top, #6aa436, #8dc059);
+   background: -ms-linear-gradient(top, #6aa436, #8dc059);
+   background: -o-linear-gradient(top, #6aa436, #8dc059);
+   background-image: -ms-linear-gradient(top, #6aa436 0%, #8dc059 100%);
+   color: #fff;
+   }
 </style></head>
 <body>
 <div class="wrapper">
@@ -167,7 +272,7 @@ td{
 			</div>
 			<ul class="nav"> 
 			<li class="active"><a href="products.php"> Producten </a></li>
-			<li> <a href="#"> Orders </a></li>	
+			<li> <a href="orders.php"> Orders </a></li>	
 			<li> <a href="users.php"> Klanten </a></li>				
 			<!--<li> <a href="#"> Profile </a></li> -->
 			<li> <a href="index.php?action=logout"> Log out </a></li>
@@ -197,32 +302,31 @@ td{
 if (mysqli_num_rows($result) > 0) {
     // output data of each row
     while($row = mysqli_fetch_assoc($result)) {
+		echo "<div class='form-container'>";
         echo "<form action='' method='get' enctype='multipart/form-data' style='width:600px;margin:0 auto;'>";
-		echo "<table><tr><td>";
-		echo "Product Naam : <input type='text' name='product_name' value=".$row["product_name"].">";
-		echo "</td><td>";
-		echo "Product Prijs : <input type='text' name='prodcuct_prijs' value=".$row["prodcuct_prijs"].">";
-		echo "</td><td>";
-		echo "Formaat : <input type='text' name='formaat' value=".$row["formaat"].">";
-		echo "</td><td>";
-		echo "Dikte : <input type='text' name='dikte' value=".$row["dikte"].">";
-		echo "</td><td>";
-		echo "Korm : <input type='text' name='vorm' value=".$row["vorm"].">";
-		echo "</td></tr><tr><td>";
-		echo "Kleur : <input type='text' name='kleur' value=".$row["kleur"].">";
-		echo "</td><td>";
-		echo "Thema : <input type='text' name='thema' value=".$row["thema"].">";
-		echo "</td><td>";
-		echo "Materiaal : <input type='text' name='materiaal' value=".$row["materiaal"].">";
-		echo "</td><td>";
-		echo "Voorraad : <input type='text' name='stock' value=".$row["stock"].">";
-		echo "</td><td>";
-		echo "Foto : <input type='file' name='image' id='image'>";
-		echo "<img src=\"getproduct.php?Product_id=$row[Product_id]\",, height=\"150\"></img>";
-		echo "</td><td>";
-		echo "<input type='submit' name='submit' ></input>";
+		echo "<div style='float: left;margin-right: 15px;'><div class='form-title'>Product Naam : </div><input class='form-field' type='text' name='product_name' value=".$row["product_name"]."></div>";
+		echo "<div><div class='form-title'>Product Prijs : </div><input class='form-field' name='prodcuct_prijs' value=".$row["prodcuct_prijs"]."></div>";
+		echo "<div style='float: left;margin-right: 15px;'><div class='form-title'>Formaat : </div><input class='form-field' name='formaat' value=".$row["formaat"]."></div>";
+		echo "<div><div class='form-title'>Dikte : </div><input class='form-field' name='dikte' value=".$row["dikte"]."></div>";
+		echo "<div style='float: left;margin-right: 15px;'><div class='form-title'>Korm : </div><input class='form-field' name='vorm' value=".$row["vorm"]."></div>";
+		echo "<div><div class='form-title'>Kleur : </div><input class='form-field' name='kleur' value=".$row["kleur"]."></div>";
+		echo "<div style='float: left;margin-right: 15px;'><div class='form-title'>Thema : </div><input class='form-field' name='thema' value=".$row["thema"]."></div>";
+		echo "<div><div class='form-title'>Materiaal : </div><input class='form-field' name='materiaal' value=".$row["materiaal"]."></div>";
+		echo "<div style='float: left;margin-right: 15px;'><div class='form-title'>Voorraad : </div><input class='form-field' name='stock' value=".$row["stock"]."></div>";
+
+		echo "<div><input class='submit-button' type='submit' name='submit' ></input></div>";
 		echo "<input type='hidden' name='id' value='".$id."'>";
-		echo "</td></tr></table>";
+		echo "</form>";
+		echo "<div style='width:600px; margin:50px auto;'>";
+		echo "    <form action='imgupload.php' method='post' enctype='multipart/form-data'>";
+				echo "<div style='float: left;margin-right: 15px;'><div class='form-title'>Foto : </div><input type='file' name='image' id='image'></div>";
+		echo "<div><img src=\"getproduct.php?Product_id=$row[Product_id]\",, height=\"150\"></img></div>";
+		echo "<input style='top:-20px;' type='submit'  class='submit-button' name='submit'		value='Upload foto'/>";
+		echo "<input type='hidden' name='id' value='".$id."'>";
+		echo "</div>";
+		echo "</form>";
+		echo "</div>";
+		
 }
 }
 
